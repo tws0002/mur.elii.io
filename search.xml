@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[夢想動畫Houdini工具套件說明]]></title>
+    <url>%2Fms-houdini-workpack%2F</url>
+    <content type="text"><![CDATA[安裝方法 (二選一)：A - 將 Q:\resource\houdini.env 複製到 C:\Users\使用者名稱\Documents\houdini16.5 並覆蓋B - 直接打開 C:\Users\使用者名稱\Documents\houdini16.5\houdini.env並在最後加上兩行 HOUDINI_OTLSCAN_PATH=&quot;Q:/resource/houdini;@/otls&quot;HOUDINI_MENU_PATH=&quot;Q:/resource/houdini;@/&quot; 使用方式：指令在選單列MoonShine底下，節點在右鍵(Tab)的Elisha&#39;s Tools底下 指令 Link Bound將模擬的外框size跟pivot連結到指定的物件 Link Parm連結節點大小或中心給參數 Add Vex Function對Attribute Wrangle頂部增加常用公式– 兩向量夾角 : 兩個向量的角度– 動畫控制 : 基礎的程序動態控制公式 Create Rop From Cache將cache包成rop給deadline放模擬 Add Seperate EXR From Rop在rop下增加EXR拆層 Export Transform Info匯出位置資訊的文字檔案 Export Material Info匯出材質資訊的文字檔案 Help開啟套件說明網頁 節點Animated Bound / 動態外框 動態範圍的bounding box 指定時間範圍取出最大的bounding範圍 Frame : 時間範圍 Calculate : 按下開始計算 Lower Padding : 同bound參數 Upper Padding : 同bound參數 Attribute to Material / 依屬性創建材質 根據屬性創建相對應材質 主要是給FBX輸出用，常搭配Group to Attribute做使用 Attribute Name : 對應的屬性，右邊箭頭下拉有目前屬性方便選取 Delete Attribute : 對應後刪除屬性 Refresh : 強制更新材質 Batch Schedule / 佇列排程執行 將模擬或算圖排程執行並在完成時獲得通知與經過時間 Node : 將要排程的節點拖曳到此欄位 Add to List : 按此按鈕加入排程佇列 Relative : 用相對路徑的方式加入節點，以維持架構 Batch List : 排程佇列，前面勾勾可以略過排程，也可在此手動添加/更改節點 Email : 可以勾選在排程完成後寄信通知，如果寄信成功，此欄位的電子信箱會自動儲存在電腦裡 Camera Cone / 攝影機視角範圍生成 依照攝影機視角產生六面體模型 Camera : 選擇攝影機 Near : 攝影機起始的Z值 Far : 攝影機終點的Z值 X Offset : 攝影機寬度的微調 Y Offset : 攝影機高度的微調 Compute Velocity / 速度計算 取代trail的快速運算 Match Attribute : 屬性配對，通常是id或name Crop by Camera / 攝影機裁切 依照攝影機視野去做裁切 Camera : 指定要裁切的攝影機 Frame Offset : X與Y軸框架的微調 Crop Z / Z Offset : Z軸的裁切 Duplicate Wires / 線條複製 將線條以自身為中心，複製多份 Radius : 複製線條的半徑 Amount : 線條數量 Edge Group to Curve / 邊線群組轉換線條 將物件的Edge群組取出成線條 Group : Edge群組選擇，右邊箭頭可下拉快速選取 Fuse Vertices : 連結所有線條 Export Pack to FBX / Pack物件輸出FBX 將Pack物件動態分成個體輸出FBX 主要是用在碎裂特效輸出到3ds Max或遊戲軟體，在面數與物件不多的情況之下，對空間與效能節省許多，可調性也比較高。 Output File : 輸出FBX的路徑 Start/End : 開始與結束影格 Scene Scale : 場景大小 Export Point Cache / 輸出Point Cache 輸出給MAX和MAYA讀取的FBX與PC2檔，注意要三角面 Export : 輸出FBX和PC2 Export Cache Only : 只輸出PC2 Start/End : 輸出影格範圍 Export Path : 輸出路徑 File Name : 檔案名稱 Export to AE / 將物件跟攝影機輸出到AE 產生可讓AE讀取物件位置跟攝影機動態的檔案 物件部分目前只可讀最外層的obj，之後會想改良成point位置會比較方便 Extract Matrix / 分析位移資訊 將只有頂點動態的物件分析出Matrix資訊 Cache Trasnsform Data : 將分析資訊儲存cache Geometry File : cache儲存位置 Group Similar Transform : 將類似的位移物件群組起來 Visualize Groups : 顯示不同群組 Grp Threshold : 群組位移資訊的相似度 Frame : 群組判斷的格數 Fit Zero One Attribute / 映射屬性到01 將屬性延展或壓縮，對應到0~1之間 Attribute Type : 屬性類別 Fit Attribute : 屬性名稱 Create New Name : 重新命名新映射的屬性名稱(不沿用原名稱) New Attribute Name : 新屬性名稱 Grid Points / 產生格點 對物體產生等距格點 Length : 點與點之間的距離 Expand : 範圍的延伸或縮減 Group to Attribute / 群組轉換成屬性 將群組變成字串屬性，群組名稱為屬性值 Attribute Name : 轉換成的屬性名稱，右邊下拉箭頭有預設項目 Delete Groups : 轉換後刪除群組 Keep Biggest Part / 保留最大區塊 利用connectivity區分部件，並只保留最大體積區塊 Material from 3dsMax / 繼承3dsMax材質 取得max場景物件的材質資訊，並重新上回在houdini的alembic，以及最後到max的VrayProxy材質重新對應回去 Get Max Script : 開啟含有maxscript的資料夾，裏頭有兩個script -- `A_getMaterial` : 在3dsMax裡選取要取得材質資訊的物件並執行，會將資訊複製到剪貼簿，然後再貼到Material Data的欄位上 -- `B_applyMaterial` : 在3dsMax匯入VrayProxy後，選取並執行，將材質對應回去 Material Data : 將A_getMaterial執行產生的資訊貼在此處 Attribute Name : 材質資料的屬性名稱 Merge to Class / 合併並分類 將輸入的節點merge並依輸入順序設定class屬性 Packed Disk Edit / Packed Disk編輯 改變Packed Disk路徑或格數，修正原有節點瑕疵 Rename Path : 重新命名路徑– Group : 群組過濾– Source Pattern : 原有名稱要取代的部分– Destination Pattern : 取代後的新名稱 Frame index : 更改影格– Sequence Index : 影格數字– By Attribute : 用primitive的屬性來更改影格數字 Wrap Type : 影格範圍到盡頭的行為– clamp : 停留在最後一格– cycle : 重複播放– strict : 空白物件 Patch Particles / 粒子填充 將每格粒子數量補足成最後的數量，主要用在破碎碎粒可以做成頂點動畫 Input0 : 粒子動畫 Input1 : 最後一格的粒子 Quick Bound Clip / 快速方塊切割 給予一個方塊(可旋轉)，將模型快速裁切在BOX裡面 Rotate Prims / 剝皮 將Primitive針對參考點去捲動，類似剝皮的效果 Time : 動畫時間點 Range : 每個轉換過程佔據整體時間的比例 Flip Direction : 相反旋轉方向 Amount : 旋轉的強度 (Rotation) Progress Curve : 旋轉動畫的過程曲線 (Shrink) Progress Curve : 縮小動畫的過程曲線 Remove Empty Primitives : 移除縮到看不見的面 Remove Computed Attributes : 移除中途計算的屬性 Seperate / 物件分類 用選取方式將物件拆解分成不同部位 Create Node to Parts : 根據群組產生各自節點 Visualize : 用顏色標示每個群組 Hide Other Parts When Select : 選取群組時，將現有群組隱藏，以避免誤選 Attribute : 分類的屬性名稱 Group Name : 該部位的群組名稱，空白的話不會建立群組 Primitives : 選取的面編號，按右邊箭頭來選取 Solo : 單獨顯示部位 Seperate EXR channels / EXR拆通道 (COP) 將多通道的EXR照公司算圖方式拆開到各別資料夾 File : 要拆的EXR序列 Reload : 重新讀取一次 Start / End : 開始與結束的影格 Output Elements : 預覽會拆開的元件跟檔名 Render (Controls) : 算圖跟細項(依影格順序算或元件順序算) Tension / 張力分析 網路的套件，藉由參照物件找出扭曲改變的部分 Transform by Alembic / 跟隨Alembic位移 找出Alembic的位移資訊並套用 Transform by Axis / 根據軸向位移 找出最相符的軸向並依此型變 Axis order : 依照三軸長度由升序排列 Translate : 位移 Rotate : 旋轉 Scale : 縮放 Transform by Matrix / 相對Matrix位移 前一個節點的進階版，抓出input1跟input2的matrix相對位移資訊來移動 Input0 : 要位移的物件 Input1 : 參考物件 Input2 : 動態物件 VDB Merge / 合併VDB 合併同一節點的所有VDB Volume Vector Visualize / 顯示體積資訊 視覺化體積資訊，主要用在Vel Attribute : 要顯示的體積屬性 Plane : 資訊的切面方向 Offset : 切面的位移 Trail Length : 顯示的拖尾長度 VR Flipbook / VR預覽 產生360預覽 Start/End : 擷取範圍 Output Path : 輸出路徑 Filename : 檔案名稱 Camera : 要產生的相機 Resolution : 解析度 Export Video : 將預覽轉檔成影片，並選擇是否保存原始圖檔序列 CubeToSphere Path : 應用程式的路徑 FFMpeg Path : 應用程式的路徑 流程工具Moonshine Cache Export / Cache交接輸出 對MAYA流程的Cache輸出，交接備註與管理 Cache資料夾路徑 : 當設定好專案資訊後會顯示路徑，可複製 硬碟代號 : 選擇要存在Q槽或者D槽 Export按鈕 : 輸出Cache，如果是第一次建立該Cache也會新增必須的資料夾 資料夾按鈕 : 打開保存Cache的資料夾 複製按鈕 : 從另一個硬碟代號將Cache複製過來，譬如現在在Q槽的某cache_v2，就會從D槽的某cache_v2把檔案複製過來，方便在本機模擬完後再轉移到網路伺服器 User : 輸出Cache的使用者名稱 Project : 專案名稱 Cut : 卡號 Name : Cache名稱– Name右邊按鈕 : 如果有設定好專案跟卡號，可以直接按此按鈕讀取該卡號的Cache資訊 Version : 版本號– Add Comment : 增加該版本號備註 交接留言板– 重新整理按鈕 : 重新整理Cache交接留言板– 中間文字 : 最新一則交接留言版的留言– 氣泡框按鈕 : 觀看所有留言跟新增留言 Valid Frame Range : 影格輸出方式 Start/End/Inc : 影格輸出範圍 Scene Scale : 場景大小 Seprate : 分別設定場景大小的三軸 Type : 選擇要輸出Alembic還是VDB Alembic :– Render Full Range : 勾選時輸出為一個alembic，取消勾選則輸出多個alembic– Build Hierarchy From Attribute : 由自訂屬性創立階層關係– Path Attribute : 自訂階層屬性 VDB :– Write 16-Bit Floats : 寫入16位元浮點數格式，壓縮節省Cache空間]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tutorial</tag>
+        <tag>otl</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Deadline跟Houdini連動筆記]]></title>
+    <url>%2Fdeadline-houdini-intergration%2F</url>
+    <content type="text"><![CDATA[將houdini與deadline連接遇到的狀況跟解決方法紀錄在這裡。 Hython版本修改不知道為什麼在configure plugins改hython版本沒有用，後來在DeadlineRepository\plugins\Houdini\Houdini.param直接修改才順利執行對應版本。 自製ROP的連動houdini在deadline的算圖，是slave會用hython呼叫hrender_dl.py副本並把參數寫進去，hrender_dl.py的主文件位置在DeadlineRepository\plugins\Houdini\hrender_dl.py。 而hrender_dl.py在經過一連串的設定後，是呼叫hou.RopNode.render()來算圖，在這邊用自製ROP遇到問題。 我在自製的ROP裡有用hou.frame()取現在格數的方式來做計算，如果呼叫hou.RopNode.render()的frame_range參數start跟end是一樣的話(例如(103, 103))，用hou.frame()取到的值會是1.0，但如果frame_range參數start跟end不一樣(例如(103, 106))，hou.frame()取到的值就會是正確的103~106。 解決辦法即是更改hrender_dl.py，加入自製ROP的判斷式用hou.setFrame先移到想要的格數。# ...取自hrender_dl.py最後段，以上省略。elif ropType == "Redshift_ROP": # blablabla# 增加自製ROP的判斷式，並更改格數讓自製ROP的hou.frame()可以吃到正確格數elif ropType == "eli_sepExrRop": if startFrame == endFrame: hou.setFrame(startFrame) if tileRender: # blablablaframeString = ""if startFrame == endFrame: frameString = "frame " + str(startFrame)else: frameString = "frame " + str(startFrame) + " to " + str(endFrame)if isWedge: # blablablaelse: print( "Rendering " + frameString )# 如果是一般的自製ROP，整個py只會執行方才增加的判斷式跟下面這行rop.render( frameTuple, resolution, ignore_inputs=ignoreInputs )]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tip</tag>
+        <tag>deadline</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[將iPhone X的臉部追蹤資訊匯到Houdini處理]]></title>
+    <url>%2Fiphone-x-face-tracking-capture-houdini%2F</url>
+    <content type="text"><![CDATA[入手iphone X後，前幾天開始好奇是不是可以來玩些什麼，於是去翻翻關於臉部追蹤的資料庫，發現蘋果對於這塊的API寫得很好，可以輕鬆取得相關追蹤資訊。於是就研究了些方法，讓資料可以帶到Houdini。 紀錄一下這幾天研究的一些心得。 前言上面的影片是用擷取好的資料在houdini重現，另外將捕捉時的圖像序列存下來，放在旁邊對照，造成有些人誤會是即時的。 但的確有另外做即時串流的捕捉模式，如下圖範例，不過就沒有辦法串流圖像，可以看到臉部生硬很多。(格率不夠是quicktime擷取4K螢幕的問題，手機APP跟伺服器當下是每秒60格運作的) 先附上這次的GitHub原始碼，程式基礎很淺，有點亂請見諒。 整體的流程，分客戶端跟伺服器端： 客戶端：在iphone X上寫一個APP，可以將臉部的追蹤資訊以串流送出或者儲存在手機。 伺服器端：在houdini上讀取資料，串流模式下架設伺服器接收臉部資訊封包，並將資料轉換成動態。 客戶端(iPhone, Swift)概要 陽春的介面：錄製模式、串流模式、細節設定，和一顆錄製Capture按鈕 臉部追蹤的部分是用到ARKit(連接SceneKit)，這邊蘋果已經幫我們準備得非常完善，追蹤運算那些深層都不用管，只要拿結果資料就好。 ARKit的細節就不詳述了，網路上有非常多文章寫得不錯，WWDC2017也有很多長知識的影片。現在相關文章大多都是一般的場景AR，而不是關於臉部的AR，不過大同小異，基礎的架構是一致的，蘋果研發網站的文件相當齊全，也有範例檔案跟說明，幾小時就能上手。 接下來所說的大部分在GitHub的程式碼都有註解，不再多做贅述。 客戶端這邊的流程是： 從AR框架取得資訊 -&gt; 將資訊整理 -&gt; 看是要串流封包給伺服器還是存檔在應用程式資料夾 要取得的有：臉部頂點資訊、臉部transform、臉部blendshape資料、攝影機transform、攝影機圖像 臉部頂點資訊ARKit主要的追蹤資料是存在ARSession.currentFrame裡面，也就是目前當格的追蹤資訊(ARSession預設捕捉是每秒60格)，臉部追蹤時只會有一個ARAnchor，如果畫面有兩個臉也只會針對比較明顯的去做追蹤， 而臉部的ARAnchor有一個專屬繼承類別叫ARFaceAnchor，就存有臉部模型與頂點位置資訊，用ARFaceAnchor.geometry.vertices可取出向量陣列。 臉部transform方才只有臉部頂點的資訊，類似表情這樣(像這影片)，那還需要旋轉位移等資訊才能移動頭部，同上從ARAnchor.transform拿到matrix4資訊。 臉部blendshape除了頂點資訊來做表情，還有更原生的blendshape資料可以拿，詳細的blendshape列表可以查看蘋果研發網站，還會有圖片清楚示意每個blendshape的morph。這個資料一樣要從ARFaceAnchor.blendShapes取得(得到的類型是字典)。 攝影機transform跟臉部一樣，是matrix4，這個攝影機資訊拿到是要在houdini裡面做投影貼圖用，結合待會要說的攝影機圖像。ARSession.currentFrame.camera可以拿到ARCamera，就是追蹤環境下當格的攝影機資料(還有追蹤狀況品質等)，再從ARCamera.transform取得位移。 攝影機圖像從ARSession.currentFrame.captureImage得到當格追蹤參考的圖像，解析度是1280x720，比較要注意的是取得的型態是YUV的CVPixelBuffer，要存成JPG或PNG需要再進行一些步驟，寫在GitHub原始檔的Extensions.swift裡。 取得資訊後，要轉換成字串以便寫成檔案或串流，詳細的方法也寫在Extension.swift裡，就是很陽春的轉成字串並分隔，時間格由每行分開，每種資料之間由”~”分開，資料自己再以”:”分開。浮點數包含”e”這種的轉成字串沒有關係，houdini是可以轉回去的，blendshape資訊也是如此。 取得資訊、資訊轉成字串都好了，接下來是輸出。分成兩類：Record錄製、Stream串流 Record錄製錄製比較需要的是可以自訂FPS，用Timer.scheduledTimer去做到這點。 錄製的流程是：每次執行捕捉時都將資料暫存陣列，而攝影機圖像就先存成JPG。錄製完後，將捕捉暫存陣列轉換成字串寫成txt文字檔，跟方才陸續存成的圖像序列都放在APP下documentary建立資料夾打包。 每格的圖像處理是另外的queue去跑，主執行還是跑捕捉，只是會把圖像資料丟給這個queue，queue再自行轉成jpg跟寫檔，queue在執行這過程要再包一個autoreleasepool，不包的話，跑UIImageJPEGRepresentation會讓記憶體瞬間衝滿，不會釋放。 錄製的檔案以錄製時間分類資料夾，從itunes可以輕易取出 Stream串流串流這塊很棘手，其實這幾天研究下來有絕大部分的時間都在處理這塊，對於網路和檔案傳送這塊不是很了解。 跟錄製從Timer.scheduledTimer執行不一樣的是，串流是由ARSession的delegate：didupdate來執行，也就是捕捉的每格都會串流，來做到最即時的反應。 用Stream.getStreamsToHost取得outputStream連接伺服器端，再將取得的資料轉成字串輸出，而每格的總執行時間要低於0.016秒，才能穩定60格輸出。當然還有傳的資料最後加上結尾字符，跟出錯時提醒伺服器停止接收等必須動作。至於圖像的串流目前能力還做不到。 伺服器端(Houdini, Python, Vex)概要伺服器端完全在houdini裡面搭建，先建立整體架構，用Python SOP匯入錄製資料，串流部分則利用hou.session(python source editor)完成接收伺服器的編寫。blendshape資訊在這流程下其實沒有用到，只是提供一個取出來的方法，以供之後有搭配rig的角色使用。 整體節點如下圖所示：由讀取臉部模型的faceGeo當起始，以Record錄製跟Stream串流兩種模式來分成兩大區塊。 faceGeo讀取一個臉部模型的bgeo.sc檔案(GitHub有附)，這是利用Xcode擷取出Scenekit的Collada檔案轉換而來，也就是ARFaceGeometry的模型。目前還不知道怎麼利用Model I/O匯出模型，既然臉部頂點都一樣，都是用同一個拓樸去貼合臉型，就沒必要每次都擷取模型。 Record Mode區塊material上一個unlit材質，並上臉部貼圖，材質的貼圖路徑是跟getRecordData連動的(去取得該路徑資料夾下的臉部圖像序列)。 getRecordDataPython Sop，這區塊的核心，選擇錄製資訊的資料夾，之後都幫你轉換好。滿意外的是貌似只讀取一次文字檔，之後拖曳時間軸順暢沒壓力，也不會有重複硬碟讀取。這邊是去抓指定資料夾裡的faceData.txt，並將資料解析給各頂點設定位置，然後將攝影機跟臉部的transform跟blendshapes給放到detail屬性裡。houdini 16.5新增的選擇資料夾parm，突破以往只能選檔案的限制，也使得這個hip只能用16.5開啟。 vex_faceAni然後將已經移動完位置的頂點套上臉部matrix資訊。 vex_camTrans將攝影機的matrix解出位移跟旋轉，其實AR攝影機只會有旋轉的資訊。這個資訊會套在根路徑的投影貼圖專用攝影機。 vex_projectUV投影貼圖的攝影機套上位移後，取得攝影機跟頂點的相對位置，投影成頂點的uv。這樣錄製的部分就完成了。 Stream Mode區塊useMapping因為串流模式沒有串流貼圖，可以先用錄製模式取得的某格貼圖跟uv去上在模型上。 streamServer這區塊的核心，伺服器IP設定、開關控制，以及用接收的資訊去驅動模型。在這邊新增按鈕，跟hou.session做連動控制伺服器的開關跟設定IP，並有一個隱藏的字串parm(&quot;datas&quot;)去接受串流得到的捕捉資訊，code的wrangle部分再用這個parm(&quot;datas&quot;)去移動頂點。 hou.session module跟iPhone X 串流溝通的部分是寫在這裡，也就是存在hip本身裡面的python檔，將公式定義在這裡，方便修改以及跟streamServer節點的按鈕連動。 接收的伺服器制定了兩個執行緒，一個執行緒持續接收iPhone X這邊的封包，並將接收好的封包丟在一個queue，另一個執行緒持續等著這個queue，這個queue一有東西便馬上拿出來放到streamServer的parm(&quot;datas&quot;)裡。這邊兩個執行緒都會持續播報每秒執行的資料數量，正常來說應該都要是print 60, 60，而houdini viewport更新的部分可能礙於顯示效能，會是30~60fps跑。 伺服器端的部分大抵是這樣，其實東西都很簡單，但學習串流的部分花了很多時間，到目前為止其實都還不算穩定，有時候也會因不明原因延遲，要重新接幾次才會順暢60格跑。至於圖像串流，曾經試過將圖像轉成jpg後用base64方式去傳，但都會略高於1/60秒的處理時間，更何況還有houdini這邊圖像更新所需的時間，還是將這種事情留給unreal或者unity做吧。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>vex</tag>
+        <tag>tutorial</tag>
+        <tag>python</tag>
+        <tag>swift</tag>
+        <tag>ar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Houdini針對攝影機範圍做粒子的裁切輕量化]]></title>
+    <url>%2Fhoudini-crop-tondc-particle%2F</url>
+    <content type="text"><![CDATA[在將houdini的特效輸出到其他軟體時，有許多輕量化的撇步。這裡介紹一種很常用的依照攝影機看到範圍去裁切的方法。 模型準備 準備了一隻豬，並用scatter撒上大量的點。 在攝影機視角看到的會是這樣，有很多粒子都不在攝影機看到的範圍。 裁切vex 下attribute wrangle，用vex來寫裁切的描述。 如註釋所解釋： 建立一個向量變數，取名叫ndc，用來取得點在攝影機的相對位置，稍後會針對toNDC做進一步解釋。 建立一個浮點變數，取名叫offset，用來微調，因為通常會去取比攝影機的正確範圍稍大點的值去做篩選。 定義兩個篩選用的邊緣值。 用ndc的x、y去判斷是否超出邊緣，超出邊緣即刪除。這邊沒有做Z值的判斷，通常Z值會用ndc.z &gt; 0來做刪除，代表已經跑到攝影機後面。 前面輸入chs(&quot;cam&quot;)後，自動產生parameter會是string類別，可以將它編輯成operator path，並指定只能選擇攝影機，以方便使用者選取。 總結 這樣便可以將粒子篩到剩下攝影機的範圍再輸出，節省不少空間，也能增進讀取效能。不只粒子，有很多太重的cache也可以用相同的方法去做延伸。 關於toNDC，它是會取出位置(粒子座標)在物件(攝影機)的相對位子，x跟y的邊緣是0~1(不會clamp)，那z的話就是以攝影機位置為0，向後是正的增加，向前是負的減少，用這三個得到一個向量值。 範例檔案]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tip</tag>
+        <tag>vex</tag>
+        <tag>particle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Houdini快速製作類似Diablo天使的虛化翅膀效果]]></title>
+    <url>%2Fhoudini-diablo-wing-aurora%2F</url>
+    <content type="text"><![CDATA[去年一個案子要做出類似暗黑破壞神的天使翅膀。運用wire capture操縱turbulence的翅膀片狀，並調整適當shader，幾乎可以做到即時預覽。也可以拿來做為靈氣(aurora)之類的效果，免去用大量praticle堆疊。 導引骨架 一開始用wire solver簡單做出幾個動態的線條，在這邊稱為翅膀的導引線，每個導引線都是一個primitive，並且每點等距。 加上measure算出每個導引線的長度，接著用foreach針對每個導引線做權重綁定處理。 權重綁定 製作出一個和導引線等長的片狀翅膀，以X軸為基準。 翅膀完成後，讓導引線的每個點根據自己的點編號順序排在X軸上，與翅膀對齊，便可以用wire capture算出翅膀在導引線上的權重。 增加動態 加上turbulence，注意freq的比例、隨時間增加的offset，這邊的扭曲是算圖效果的關鍵。 另外有做twist去豐富動態細節，要注意的是隨著每根翅膀不同，要有不同的seed才有多樣化的層次。 翅膀本身型態調完後，就可以添加wire deform去跟隨導引線的動態，到這邊基本上模型的部分就完成了，剩下的是一些修飾，像根據導引線頭尾位置添加顏色漸層，或者smooth修順形狀。 材質shader則是創造一個constant預設材質球。進到內部，加上normal falloff去相乘color，以及當成opacity。然後調整normal falloff的參數，去抓出翅膀扭曲部分的漸層。 測算單張，算圖時間僅需3秒。 整個流程只要修改導引線便可以更改動態，而翅膀的細節則由turbulence去控制，彈性很高，相同概念可以用在很多地方。 最後附上示範hip檔]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>vex</tag>
+        <tag>tutorial</tag>
+        <tag>shader</tag>
+        <tag>wire</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用Pixpro SP360 4K錄製立體180度VR影片]]></title>
+    <url>%2Fpixpro-sp360-4k-180-vr-video%2F</url>
+    <content type="text"><![CDATA[比起一般360影片，正面180度的立體影片可說是沉浸感更高的影片類型，一般360只是像在一個球形螢幕裡面四周看，而立體影片會讓你身歷其境，或許一開始會有只有180度的疑慮，但其實稍微左顧右盼已經足夠，很少會有想轉到身後的時候。 PIXPRO SP360 4K是一台可以錄製超廣角的運動攝影機，也可以買兩台同時攝影，縫成360環景影片。但它其實也非常適合去錄製雙眼立體正面180度VR影片。 下面便介紹硬體設備的準備，以及影片處理的一些流程。 硬體設備Kodak SP360 4K SP360 4K(特別指雙機組)非常適合拿來拍攝180度VR立體影片。 單機拍攝具有235度的視野。 有遙控器可以同時控制兩台錄製(大約只會有1~2格時間差)。 拍出來是2880x2880的魚眼原始檔，易於後期處理，甚至可以做出5760x2880的高解析影片。 可能因為規格特別，還需要兩台才能拍360比較麻煩，較不受消費者青睞，價錢下殺頗大。 立體支架有了兩台SP360 4K跟遙控器，接下來需要可以讓兩個攝影機平行拍攝的支架。 目前能找得到的專用支架都是3D列印的，一種是可以從eBay、淘寶購得，另一種是這位Mark先生的特別製作並有詳細心得解說。 本篇所使用的是淘寶購入的版本。 三軸穩定器最後一個非常重要的設備是三軸穩定器，如果沒有三軸穩定器，你只能架在腳架上立定拍攝。 因為就算輕微地震動，都會嚴重影響觀看時的舒適度，容易暈眩出戲。 但如果有三軸穩定器，你手持著像常人一樣走路爬山都沒問題(當然還是能穩盡量穩)。 而且三軸穩定器能讓你持續保持水平，而拍攝立體VR最重要的就是保持水平，不仰不俯，是觀看的人自己要去抬頭低頭。 不過就算有三軸穩定器，還是要練習如何「轉彎」，這是會影響舒適度的一個大環節。 這裡使用的是智雲Zhiyun Crane-M，是一支可續航12小時的輕便三軸穩定器，雖然只能承重650g，但配著兩台SP360 4K恰到好處。平常就像上圖的組裝方式，收納在背包裡，出去旅遊時便可以隨時拿出來紀錄一段。 後製處理接下來說明拍攝完的處理步驟。 攤平素材 拍完後的素材，如圖是2880x2880的魚眼影片，要先將魚眼的原始素材展開成Equirectangular(等距長方投影)。 展開的方式，嘗試過Autopano、AE的RE:lens、Nuke的CARA VR，結果仍不如官方附屬程式360stitch來得好(CARA VR很接近，但還是有些落差)，可惜360stitch非常陽春，就只能縫合輸出3840x2160影片，沒有細節參數可以調整。 360stitch本意是將兩台機器拍攝的影片接成360，但我們只是拿來展開，所以便把兩個影片都設為同個影片輸出，結果如下：注意將接縫設定為「銳利」。 疊合左右眼將左右眼都展開後，因為要傳到youtube，所以採用Over/Under上下立體拼接：將左眼擺在上層，右眼擺在下層疊起來。 拼接完後，還必須給上一層mask去遮住不需要看到的地方，譬如後面180度範圍，以及左右眼會看到彼此鏡頭的部分。 在這邊我是直接按照影片截圖去做了一張透明PNG。 處理完的結果就是一個4096x4096的360立體影片(但後面180度是遮住的)： 批次處理許多網路上的方法都是用Premiere、Finalcut或者AE去做上述步驟的處理，但如果你拍攝很多片段，這是很耗時的事情，更何況只是簡單的兩個步驟：疊加影片-&gt;蓋上遮罩。 所以這邊我是用Python配上ffmpeg去做批次處理 (如果cmd指令夠強其實也不用進到python) 像這樣已經用stitch360輸出影片並命好名稱(這步驟避免不了，真心希望柯達可以開放command line)另外要注意的是用stitch360輸出前可以先將左右兩眼影片拖進程式，去讓程式判斷聲音同步的誤差，通常是0~2格。 接著執行下面script(ffmpeg已經有設定PATH環境變數)import glob, subprocess, osvideo_list = glob.glob("*_l.mp4")for video_file in video_list: video_name = video_file.replace("_l.mp4", "") cmd = 'ffmpeg -i &#123;0&#125;_l.mp4 -i &#123;0&#125;_r.mp4 -i mask_360.png -filter_complex "[0:v]pad=iw:ih*2[base]; [base][1:v]overlay=0:H/2:shortest=1[over]; [over][2:0]overlay=0:0[output]" -map [output] -map 0:a:0 -c:v libx264 -crf 17 -y output/&#123;0&#125;.mp4'.format(video_name) subprocess.call(cmd, shell=True) 整個script用意就是蒐集影片，合併並貼上遮罩輸出。 快速剪輯一般來說到這邊，影片就完成了。 但如果你想要剪接，用一般編輯軟體，4096x4096的高解析度，又慢又會二次轉碼損傷畫質。於是也手動一點，用ffmpeg做無編碼剪輯，雖然剪接點可能會有點小落差，不過通常這種VR立體展示影片是不會太計較，而且輸出幾秒就可以完成。 這些是照上一步驟輸出已合併的立體影片，建立一個edit.txt文字檔並把檔名跟剪接的in、out點寫上，讓script去做剪裁跟合併的依據。 edit.txt內容範例：01 20 1:2002 37 2:4003 1:03 2:2703 4:08 5:3104 1:33 2:19 Script內容：import subprocess, osdef duration(st, et): def cnvSecs(t): if t.find(":") != -1: t_s = t.split(":") ct = int(t_s[0])*60 + int(t_s[1]) else: ct = int(t) return ct return str(cnvSecs(et) - cnvSecs(st))def cmdEdit(filename, st, et, outputname): return "ffmpeg -ss &#123;0&#125; -i &#123;1&#125;.mp4 -t &#123;2&#125; -c copy -avoid_negative_ts 1 -y &#123;3&#125;.mp4".format(st, filename, duration(st, et), outputname)with open('edit.txt', 'r') as f: f_list = f.read().splitlines()output_list = []for idx, l in enumerate(f_list, 1): cmds = l.split(" ") outputname = "edit_&#123;0&#125;".format(idx) output_list.append(outputname) subprocess.call(cmdEdit(cmds[0], cmds[1], cmds[2], outputname), shell=True)edit_list = ["file '" + s + ".mp4'\n" for s in output_list]with open('temp.txt', 'w') as f: f.write("".join(edit_list))subprocess.call("ffmpeg -f concat -i temp.txt -c copy edited.mp4", shell=True)remove_list = [s + ".mp4" for s in output_list]remove_list.append("temp.txt")for file in remove_list: os.remove(file) 其實網路上也有些免編碼帶UI的剪輯程式可以方便使用。 另外，如果沒有要上傳到youtube需求，其實side by side的方式可以簡潔一點，因為只要4096x2048的尺寸，不需要留後面180度的黑幕，不過其實容量差不多。 這邊留有之前side by side的bat內容：ffmpeg -i input_l.mp4 -i input_r.mp4 -i mask_180.png -filter_complex ^"[0:v]crop=1920:1920:960:0[crop_left]; ^[1:v]crop=1920:1920:960:0[crop_right]; ^[crop_left]pad=iw*2:ih[base]; ^[base][crop_right]overlay=W/2:0:shortest=1[sth]; ^[sth][2:0]overlay=0:0[output] ^" -map [output] -map 0:a:0 -c:v libx264 -crf 17 -y VRsbs.mp4 範例影片最後附上最近錄製的幾段影片，youtube這邊要看原始解析度可能會很頓，所以也附上影片原始檔連結，在手機用橙子vr或者在電腦用virtual desktop選擇360 Over-under觀看。]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>vr</tag>
+        <tag>vive</tag>
+        <tag>camera</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用HTC Vive看Cardboard Camera的照片]]></title>
+    <url>%2Fcardboard-camera-htc-vive%2F</url>
+    <content type="text"><![CDATA[Google 在 Android/iOS 雙平台推出的 Cardboard Camera，算是目前看過效果最好的360立體照片軟體之一，而且拍攝極其方便簡單，就可以產生出約10000像素寬的高解析立體照片。問題是，這照片只能在手機自己的APP看，從手機的相簿或者傳到電腦上，會發現只有一張照片。 這問題在 Vector Cult VR 的文章 有很詳盡的解釋。 圖檔結構跟解出原始檔原來右眼的照片跟錄製時的環境音檔都存在這張Jpg的中繼資料裡面，XMP竟然可以保存這麼多格式。知道原理後，便著手開始寫轉換的script，取得jpg中所需的資料，包括右眼圖檔、上下的裁高，把上下不足的地方補回去打糊，就像手機APP觀看的方式一樣。 Vector Cult 在文章所使用提取Jpg中繼資料的方法是用 Python XMP Toolkit，但是這模組在windows無法編譯，所以轉個彎採exiftool用subprocess方式去接收資料。 因為想以後可以直接拖曳想要轉檔的jpg到程式就可以直接轉，所以這邊寫了一個bat，來跟py做連結，畢竟沒辦法直接把檔案拖曳到py上。 bat這邊就很簡單的寫上一行：python "%~dp0cb.py" %~dp0 %* 來把bat所在路徑跟拖曳檔案的資訊傳到py裡。 取得所有圖檔所在後便開始批次處理，首先用exiftool取得拍攝的細節資訊，了解到上下被裁切了多少，這些資訊等等圖像處理時會用到。另外也用exiftool -b的方式把圖檔的右眼照片提取出來，提出來會是binary資料，用stringIO暫存下來給pillow用，就不用還另外存一個jpg檔。值得注意的是，提出的binary資料用base64解碼預設可能會有padding的問題，所以另外弄了一個function補齊padding。import subprocess, os, json, itertools, sysfrom base64 import b64decodefrom cStringIO import StringIOfrom PIL import Image, ImageFilter, ImageDrawdef decode_base64(data): missing_padding = len(data) % 4 if missing_padding != 0: data += b'='* (4 - missing_padding) return b64decode(data)def exiftool(cmd): process = subprocess.Popen("exiftool "+cmd, stdout=subprocess.PIPE, shell=True) process_data = process.stdout.read() process.kill() return process_data.strip()output_dir = sys.argv[1] + "output"if not os.path.exists(output_dir): os.makedirs(output_dir)jpg_list = sys.argv[2:]for idx, oi in enumerate(jpg_list): print "====== Start Processing &#123;0&#125; (&#123;1&#125;/&#123;2&#125;) ======".format(oi, idx+1, len(jpg_list)) #Get Image Information print "Fetch Image Information ... " meta = json.loads(exiftool("-G -j -sort &#123;0&#125;".format(oi)).decode("utf-8").rstrip("\r\n"))[0] i_w = int(meta[u"XMP:FullPanoWidthPixels"]) i_h = int(i_w/2) c_h = int(meta[u"XMP:CroppedAreaImageHeightPixels"]) c_t = int(meta[u"XMP:CroppedAreaTopPixels"]) c_b = i_h-c_h-c_t #Extract Right Eye Image print "Extract Right Eye Image ... " r_data = exiftool("&#123;0&#125; -XMP-GImage:Data -b".format(oi)) ri = StringIO(decode_base64(r_data)) #Image Setting lm = Image.open(oi) rm = Image.open(ri) main = Image.new("RGB", (i_w, i_h*2)) im_list = [] 圖像處理接下來就是pillow的圖像處理部分，這邊是根據裁切的上下高度，去依比例將原有圖像分割兩塊，並垂直翻轉後放在原始圖像上下兩端延伸，再上一層模糊濾鏡。在此之前先做了一個mask，稍微羽化邊緣，去當作前段所述的合成圖像跟原始圖像疊加的遮罩。左右眼批次做完上述動作後合在一起，便完成所有步驟。#Create Alpha Mask for Image Overlay mask = Image.new("L", (i_w, i_h)) mask_draw = ImageDraw.Draw(mask) mask_draw.rectangle([0, 0, i_w, c_t], 255) mask_draw.rectangle([0, c_t+c_h, i_w, i_h], 255) del mask_draw mask = mask.filter(ImageFilter.GaussianBlur(50)) #Image Process for pic, eye in itertools.izip([lm, rm], ["Left", "Right"]): print "Post-Processing &#123;0&#125; Eye Image ... ".format(eye) pic_t = pic.copy().crop((0, 0, i_w, c_t/float(c_t+c_b)*c_h)).transpose(Image.FLIP_TOP_BOTTOM).resize((i_w, c_t)) pic_d = pic.copy().crop((0, c_t/float(c_t+c_b)*c_h, i_w, c_h)).transpose(Image.FLIP_TOP_BOTTOM).resize((i_w, c_b)) pic_canvas = Image.new("RGB", (i_w, i_h)) pic_canvas.paste(pic_t, (0, 0)) pic_canvas.paste(pic, (0, c_t)) pic_canvas.paste(pic_d, (0, c_t+c_h)) pic_overlay = pic_canvas.copy().filter(ImageFilter.GaussianBlur(100)) pic_canvas.paste(pic_overlay, (0, 0), mask) im_list.append(pic_canvas) for im in [pic, pic_t, pic_d, pic_overlay]: im.close() #Composite and Output print "Finalize Composition ... " main.paste(im_list[0], (0, 0)) main.paste(im_list[1], (0, i_h)) main.save(output_dir + "/" + os.path.basename(oi)) for im in ([mask, main, lm, rm] + im_list): im.close() ri.truncate(0) print "Finish!!" 接下來就可以戴上 HTC Vive 或 Oculus Rift 使用程式觀看(上面影片所使用的是Virtual Desktop)。 要更進階的話，其實可以針對所有圖檔以及左右眼的圖像處理做threading，加快處理速度(PIL真的很慢)。另外exiftool在處理十張照片左右偶爾會出現memory leak的問題，目前還沒找到解決方法，不過就從斷點繼續轉就好，不太礙事。 附上原始檔連結]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>vr</tag>
+        <tag>vive</tag>
+        <tag>camera</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Particle Flow飛彈尾煙Maxscript練習]]></title>
+    <url>%2Fparticleflow-maxscript-missle%2F</url>
+    <content type="text"><![CDATA[接到一個任務，一個飛行器上面有八顆飛彈，總共會有四十幾台飛行器，已經都有手key的飛行器移動跟飛彈射出去的動畫(這也是個花時間的功夫阿)，而我需要做的是，要在這現成的場景上的每顆飛彈加上尾煙。 由於整個表現在畫面上其實所佔不大，尾煙沒有離鏡頭很近，於是決定採用類似遊戲或AE的方式用sprite搞定尾煙的呈現，不然四十幾台用模擬會重死。而因為場景在3ds max，決定就直接用particle flow來做，也當作一個particle flow上首次用maxscript的練習。 總體來說就是要做：偵測飛彈什麼時候發射，並針對發射路徑產生particle。 由於有四十幾台，盡量還是找最快速最程序性的方式，不要用暴力來解決問題。 在這邊做了一個示範場景，用幽浮當飛行器，並簡化數量。 然後也不會將整個流程跑到算圖，注重在寫maxscript的部分。 場景前製準備在前端user製作時，已經提醒命名方式，並將飛彈的pivot都設在尾端，階層如下圖：我要做的是，為每個飛彈製作兩個dummy，一個link在飛彈上(叫fly)，一個link在幽浮上(叫stay)，當兩個dummy偵測彼此距離分開了，就等於飛彈發射了，相當不吃效能且輕鬆簡單。 那第一步就是要創建dummy，因為有四十幾台，不可能一個一個來，於是用簡單的maxscript來自動作業：missile_list = $*missile* as array --將飛彈蒐集成序列for i = 1 to missile_list.count do( --重複飛彈數量次數的循環 --指定這次循環的飛彈 missile = missile_list[i] --創造dummy綁在飛彈上，名稱後面加上_fly dmy_fly = dummy transform:missile.transform name:(missile.name+"_fly") dmy_fly.parent = missile --找到飛彈所屬的ufo，然後複製剛剛的dummy改綁在ufo上，名稱後面加上_stay ufo = missile.parent dmy_stay = copy dmy_fly dmy_stay.name = missile.name+"_stay" dmy_stay.parent = ufo) 要注意的是，執行這個script的時候必須是在所有飛彈都還沒離開幽浮之前的影格數。而且因為現在場景簡單，飛彈蒐集的方式很隨便，就只是找名字有missile就抓起來，如果場景複雜可能要多點條件篩選。 script執行後，便會得到下面的畫面： 在explorer看到會是這樣： 接下來就是主菜particle flow的部分。 創建粒子 創建一個Empty Flow，並新增一個Birth Script，要用來為每個飛彈生成一個particle。 內容如下：on ChannelsUsed pCont do( --使用integer來儲存飛彈列表的序號 pCont.useInteger = true)on Init pCont do ( --比較名字的公式 fn compareNames str1 str2 = stricmp str1.name str2.name global fly_list = $ufo*fly* as array --蒐集全部的fly Dummy成一個列表，註冊為global變數 global stay_list = $ufo*stay* as array --蒐集全部的stay Dummy成一個列表，註冊為global變數 --依照名稱排列好，以防萬一 qSort fly_list compareNames qSort stay_list compareNames)on Proceed pCont do ( t = pCont.getTimeStart() if t == animationrange.start then( --判斷是動畫第一格才會生成particle pCont.AddParticles fly_list.count --生成跟列表一樣數量的particle for i = 1 to pCont.numParticles() do( --將列表序號儲存在integer通道 pCont.particleIndex = i pCont.particleInteger = i ) )) 依這範例來說，在init初始化時產生跟著飛彈動的fly列表，以及原地跟著幽浮的stay列表。然後在動畫第一格生成六顆particle，每一顆particle都有一個integer編號代表他是對應fly列表跟stay列表的第幾個，之後所產生的particle都會給-1，來跟這六個母體分開，這算是最重要的核心想法。 黏在飛彈上生成結束後，我們要將particle黏在飛彈身上，才可以去偵測什麼時候離開stay的dummy。 於是新增一個script operator，去做黏在飛彈上的動作：on ChannelsUsed pCont do( pCont.usePosition = true --用position設定現在位置 pCont.useInteger = true --用integer對應列表編號 pCont.useVector = true --用vector儲存上一格位置)on Proceed pCont do ( count = pCont.numParticles() for i = 1 to count do( --針對每個particle做循環 pCont.particleIndex = i if pCont.particleInteger != -1 then( --如果integer不等於-1時再去設定位置 id = pCont.particleInteger pCont.particleVector = pCont.particleTM[4] --vector先儲存現在位置 pCont.particlePosition = fly_list[id].pos --Position再去設定成對應fly列表編號的dummy位置 ) )) 每一格particle都會去移動到fly列表對應的dummy的位置，而fly列表就是飛彈們的位置，另外開啟了一個vector通道去紀錄上一格的位置，這跟偵測integer是否為-1都是之後要用的。 偵測飛彈發射時機現在，particle會跟著飛彈移動了，然後也有與之對應的stay dummy資料，就可以偵測哪一格particle會跟stay dummy分開，就是飛彈發射的時候，然後送入到下一個事件。 所以接下來，我們要新增Script Test。on ChannelsUsed pCont do( pCont.usePosition = true --用Position通道偵測位置 pCont.useInteger = true --用Integer通道找stay列表對應的dummy)on Proceed pCont do ( count = pCont.NumParticles() for i in 1 to count do ( pCont.particleIndex = i id = pCont.particleInteger --以上是每顆particle循環所需的前置，而下面是判斷particle的位置大於5時，將particle通過測試 if distance pCont.particlePosition stay_list[id].pos &gt; 5 then ( pCont.particleTestStatus = true ) )) 這邊比較簡單，只是要判斷距離並送到下一個事件，而距離5這個值其實可以設定成變數，會更方便修改。 測試通過後，便要送到下一個事件。 繼續 黏在飛彈上而下一個事件呢，這些飛彈所屬的particle還是要綁在飛彈上，所以複製(instance)一份剛剛黏在飛彈上的語法，貼在新事件上。 這時候如果沒有出錯的話，播放時應該會如下方動畫這樣。 注意看每個飛彈尾端particle id號碼顏色，起初都是紫色，只在發射進入下一個事件後變成黃色。 產生尾煙particle或許你會想說，接續只要用內建的spawn產生尾巴就可以了。但其實不能這麼做，因為spawn依靠的值是速度。前面雖然都有設定每格該去的位置，但速度沒有設定到。 那接下來要設定速度去做spawn嗎？ 不，這不是最好的做法，原始場景有四十幾個飛行器，飛彈飛行的速率、路徑的彎曲程度、每格採樣次數都會大幅影響生成的效率跟品質。 所以我們就自己做一個改良版的spawn吧！不會被這些因素所影響，路徑走多少，就生成固定數量的particle。 一樣新增一個script operator，這邊可能比較複雜。on ChannelsUsed pCont do( pCont.usePosition = true --使用現在位置 --這邊的integer不是拿來對應列表，而是針對隨路徑生成的particle設定-1，好隔開跟原先particle的差異 pCont.useInteger = true pCont.useVector = true --之前設定的上一格位置就是這邊要使用的 pCont.useFloat = true --這個流程最重要的核心浮點數，用來計算下一次要生成particle的剩餘距離)on Proceed pCont do ( count = pCont.NumParticles() step = 5 --這個step是用來定義，每多少距離要生成一次particle for n = 1 to count do( --先針對現有particle做循環 pCont.particleIndex = n --要先篩選掉integer是-1的particle，也就是黏在飛彈上的particle才能參與生成尾煙的流程(避免有些尾煙particle還沒被送到下一個事件) if pCont.particleInteger != -1 then( --取出上一格位置到這一格位置的資訊，要在這兩個位置之間產生particle origin_pos = pCont.particleVector target_pos = pCont.particlePosition toward_vector = target_pos-origin_pos toward_distance = distance target_pos origin_pos --取得剩餘距離，如果沒有宣告過就給0 rest_value = pCont.particleFloat if rest_value == undefined then rest_value = 0 --判斷有沒有移動，沒移動的話接下來這些程式都不執行 if toward_distance &gt; 0 then( --有移動! 那移動的距離間隔夠產生particle嗎? if rest_value + step &lt; toward_distance then( --夠產生particle的狀況，去做一個增加step的循環，直到移動的距離再也不能產生particle local final_i for i = rest_value+step to toward_distance by step do( pCont.AddParticle() --產生particle pCont.particleIndex = pCont.NumParticles() --將接下來的狀況主角變成這個新生particle new_pos = origin_pos + i/toward_distance * toward_vector --用現在距離跟目的距離算出要產生particle的位置 pCont.particlePosition = new_pos pCont.particleInteger = -1 final_i = i --取得總共行進有增加particle的距離 ) pCont.particleIndex = n --將主角喚回母particle pCont.particleFloat = toward_distance - final_i --總結最後的剩餘距離 )else( --不夠產生particle的狀況，將剩餘距離除去現在這一段，下一格繼續努力 pCont.particleFloat = rest_value - toward_distance ) ) ) )) 看起來很繁瑣，但簡單來說，就是先設定了每多少間隔就產生particle，然後拿現在位置跟上次位置的行走距離除以間隔去判斷要生成多少particle，再去處理一些細節眉角，就可以得到一個沿運動路徑均衡產生particle的operator。 判斷送到尾煙事件接著，要篩選出這些產生的particle給送到下一個，也是最後一個要算成尾煙sprite的事件。on ChannelsUsed pCont do( pCont.useInteger = true --採用integer通道判斷)on Init pCont do ( )on Proceed pCont do ( count = pCont.NumParticles() for i in 1 to count do ( pCont.particleIndex = i if pCont.particleInteger == -1 then --如果integer通道等於-1就送出去 ( pCont.particleTestStatus = true ) )) 因為最一開始母particle都有指定編號，對應飛彈列表，而後來隨距離產生的particle，都設成-1，所以可以很簡單的分類，並送到下一個事件(前面做黏在飛彈上的script有-1的先行判斷也是為此)。 尾煙屬性設定最後一個事件是做sprite渲染，就是用shape facing去對準攝影機，用material dynamic去播sprite動畫，然後用些spin、speed等參數調整動態，這就不在本篇討論範圍，在此用個簡單的預設菱形取代。 到這邊就算完成了，結果如下： 結語在原始專案，七百多格，四十幾台飛行器，每台飛行器八顆飛彈，也是五分鐘就模擬完，負荷相當輕。 particle flow上的maxscript，說實話很難搞，邏輯跟houdini相當不同，效能差，bug也頗多，但首次練習是覺得滿新鮮有趣的，不過下次如果硬要在max做還是用TP吧！ 另外有一個小瑕疵是，算圖時要先bake起來，不然有時候不會每格都去做計算，這可能是對particle flow的script不夠熟悉而有的錯誤，所以在專案製作時是先bake成xmesh。 或許會覺得說，bake成xmesh那age那些資訊不就跑掉了，但其實這些資訊都可以用mapping保留的。 像這邊我在最後加了一個mapping，去key U值紀錄每個particle在最後一個尾煙事件的時間，存在channel 2。 這樣之後的xmesh上材質時，就可以在透明度上一層gradient ramp(注意紅圈勾起的微調)，去控制隨著事件時間漸淡，甚至也可以應用在其他地方，做成離火箭尾端近的地方有橘紅色火光之類。]]></content>
+      <tags>
+        <tag>3ds max</tag>
+        <tag>tutorial</tag>
+        <tag>maxscript</tag>
+        <tag>particle flow</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Houdini出Alembic給VrayProxy的資訊夾帶方法]]></title>
+    <url>%2Fhoudini-alembic-vray-proxy%2F</url>
+    <content type="text"><![CDATA[以往我在做houdini出particle到max的流程中，是用prt格式比較多，但近期發現vray proxy來讀alembic是很不錯的方式。 max內建讀取alembic效能很差，而exocortex的外掛是有較多相容性，但效能一樣不佳。vray proxy卻是一反前二者有著極佳的讀取速度，也有viewport減面的優化功能，在不用做二次編輯之下，vray proxy相信是目前max讀取abc的首選。 vray proxy可以讀取的資訊相當豐富，這篇就概括說明一下，houdini的資訊要怎麼帶到vray proxy。 概要以下主要側重在houdini的particle出abc給vray proxy的部分，這部分在官方document幾乎沒有資料，在研究了alembic的格式結構、論壇討論以及實際測試後，整理成以下的方法： 這邊以一個往斜上方的點當作particle資訊夾帶範例，圖上數字為自創的width屬性。 設定屬性 創了一個斜線之後，只留下點的部分，並用vex給予這些設定。我設定了三個屬性：width、Cd、mask： width即是vray proxy算圖時的particle大小，也就是houdini的pscale。 Cd是顏色，但其實出給vray proxy不用特地要叫Cd，只要你有設定屬性，vray proxy都可以讀。 最後我設定了一個mask，這個是要來跟Cd做對照 要對照什麼呢？ 你可以看到最後一行特地設定了屬性的type，把mask指定為vector屬性，其實在houdini裡基本上沒必要做這件事，當打下v@就已經知道是vector，這邊的屬性可以說是設定給alembic看，並可以順利給予vray proxy讀取的，不然vray proxy只會將mask這屬性視作單一浮點數。 那為什麼只設定了mask沒設定Cd？那是因為houdini本身就有內建幾個對應屬性類別，像v、Cd這些常用屬性都是，所以不用特別做設定。這也代表說，你設定向量的屬性type其實用vector或color都可以。 匯入Alembic 接著到max裡讀取houdini輸出的abc，注意要將vray proxy的X軸旋轉90度，縮放100倍，才會是正確大小與軸向。 如果方才有輸出width屬性，這邊就會自動對應了，而vray proxy本身的介面也有一個width總控制去相乘，像剛剛如果有縮放一百倍，這邊就要將width設成0.01。 而其他屬性資訊部分，全都含在vertex color的map channel，如果有上vertex color貼圖，可以看到channel name這邊會顯示全部屬性名稱，如果是單一浮點數屬性，名字會像r_mask這樣有一個r_的起頭。 試算 採vray light mtl並將顏色部分貼上vertex color，試算可以看到資訊完全正確。 試算時，也順便增加了一個ExtraTex pass夾帶mask資訊，也是正確無誤。因此可以延伸想說，其實不只particle，連一般物體都可以夾帶許多屬性用vray proxy的方式到vray這邊算，讓出圖跟後期合成增添許多彈性。 雖然vray算particle的速度遠遠不及krakatoa，但在專案整合，場景整理上，如果能一起用vray算圖也是很方便。尤其最近公司很多VR專案，就不用去在乎場景matte或者VR攝影機。 發光材質 krakatoa的additive渲染效果，其實vray也可以達到，上圖是一般預設材質的particle。 材質用vraylight，opacity給上一張非常暗的vraycolor，然後去調整color顏色、強度跟opacity的濃淡，就可以達到additive的效果。這邊的材質參數是：顏色藍綠色，強度3來增加密集的亮度，opacity的vraycolor是0.05的灰質。當然，這種方法出圖也會跟krakatoa的additive渲染一樣無法使用alpha。 Material ID 額外簡單說明material id的部分，其實就是用group去出成alembic的face set。 隨便用一個multi material。 基本上id順序應該是group的名稱順序。 更新補充忘記提motion blur這塊，一樣用v去帶，不過有兩個小bug。 cache最開始不能是空的，也就是第一格cache是要有particle存在的格數。 輸出單格abc無法應用vray內建的motion blur，但velocity pass會有。一定要輸出多格的才會有motion blur。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>vex</tag>
+        <tag>tutorial</tag>
+        <tag>alembic</tag>
+        <tag>vray</tag>
+        <tag>shader</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Houdini取出任意模型的截面線]]></title>
+    <url>%2Fhoudini-slice-curve%2F</url>
+    <content type="text"><![CDATA[上一篇的截線是針對球型的，那如果是任意模型的截面呢？ 或許會直覺想說，創造一個 grid，然後跟模型用 cookie 的方式選擇 crease 模式去取出來，但其實布林的方式限制很多(例如模型要封閉)，各種不穩定的因素，而且也比較需要計算效能。 在這邊使用的是以 clip 為主軸的方法，效能快，穩定，而且模型也不需要封閉。 模型準備 使用的範例模型是 houdini 內建的豬頭，並開了幾個洞讓它變成開放式模型好做示範。 流程概要 整個流程如圖：記下開放的 edges，clip 切割，再記一次開放的 edges (並撇除第一次記下的 edges)，用 polycut 刪除前者以外的模型，用繼承 clip 屬性的 grid 去清潔模型。 group 首先，先 group 既有的開放邊線，這邊取名作 initial_open_edge。 clip 接著 clip 想取出的截面，任意數值方向無所謂。 邊線群組 這次再 group 一次開放邊線，並撇除前一次的 initial_open_edge，這樣就可以得到 clip 切割出的邊線群組，這邊取作 clip_edge。 非邊線群組 將不是 clip_edge 的邊線另外取一個群組 nonedge。 取出邊線 然後用 polycut 把 nonedge 給去除掉，這樣就可以留下單純的 clip_edge，基本上到這步就結束了。 清除殘餘不過如果你是對開放式模型作處理，就可能會像上圖紅箭頭處一樣，留下一些殘餘，接下來就要針對殘餘作清除。 另外創一個比模型大的 grid ，並讓它繼承 clip 屬性來實體化切面。 繼承方法很簡單，grid 的 center 對應 clip 的 origin，然後 grid 下面接上一個 transform axis，transform axis 的 direction 跟 translate 分別對應 clip 的 direction 跟 distance。 判斷清除 接著讓每個 point 跟此 grid 的距離作一個判斷閥值，便可以輕鬆清除乾淨。 其實可以把整個節點樹做成一個簡單的 otl ，相信會很常用到。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>vex</tag>
+        <tag>tutorial</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Houdini利用圓切面來做環繞球型的線]]></title>
+    <url>%2Fhoudini-vex-sphere-center%2F</url>
+    <content type="text"><![CDATA[前陣子有一個需求效果，是要做許多環繞在球型上的切線。 在經過幾個測試評估後，決定在球心附近產生亂數點，給予方向屬性，然後找出通過此點並垂直球心的的圓切面來取得線段，可以達到最大的調整彈性跟計算效率。 產生參考點 首先就是要產生每個切線的圓心，利用一顆要小許多的球來產生點，讓範圍只在球心附近徘徊，因為不想產生半徑太小的圓切面。 設定參考點屬性 接著幫每個點設定隨機的垂直 up 跟 N，去決定圓切面的方向。 求出圓心 最重點的地方，利用數學公式去找出通過點並垂直球心的圓心。 整理後的公式如下：vector getCircleCenter(vector p_normal, p_pos)&#123; float a, b, c, x, y, z; assign(a, b, c, p_normal); assign(x, y, z, p_pos); float d = -a*x - b*y - c*z; float t = -( d / (a*a + b*b + c*c) ); return p_normal * t;&#125;// p_normal = 點的N，p_pos = 點的位置，這是圓心為&#123;0, 0, 0&#125;下的簡易公式 有圓心後再依據其方向投射到球面(外殼)的位置找到半徑數值寫在pscale裡面，並用copy circle的方式便可以產生環繞球型的切線。 particle點綴 這邊是點綴效果，讓每個線上都有particle在跑，因為有up跟圓心的數值，可以用cross product輕鬆求出v值的方向做出這個效果。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>vex</tag>
+        <tag>tutorial</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[3ds max的VR全景VIEWPORT擷取工具(附帶影片生成)]]></title>
+    <url>%2Fmax-vr-viewport-tool%2F</url>
+    <content type="text"><![CDATA[最近公司開始越來越多 VR 的案子，看有些只是要確認動態的 previz，也必須用 Vray 算出來很浪費時間。最近了解到 windows 的 command line 的強大後，測試一下發現要寫出生成 VR viewport 影片其實不會太艱難，便著手進行。 由於對於 Maxscript 不是很深入，在這次寫工具的過程中遇到一些關卡，在這邊筆記下來。 最後完成的工具如上圖： 指定要擷取的攝影機，給予檔名路徑，選擇是否縮放尺寸，指定截圖品質，選擇是否要算成影片，影片品質，是否保留截圖序列，是否只擷取 Geometry，擷取的時間範圍。 Script 的整體流程是，創造六個攝影機綁在指定攝影機上，擷取六個方位截圖，產生 Cubemaps，再把 Cubemaps 轉換成 Equirectangular 形式，最後再算成影片檔。 遇到的第一個問題便是產生的 Cubemaps 怎麼轉換成 Equirectangular？ 在經過多方資料參考後，按照這個網址的解答去製作了 maxscript 版本的算式。問題是，maxscript 的 bitmap 可撐不住這種算法，一般尺寸就會運算很久，所以果斷放棄。 後來不斷尋覓一些可以從 command line 執行的轉換程式，找到一個非常理想的程式叫做 krpanotools，裡面便含有一個cube2sphere的exe檔，去做輕便並快速的轉換。 而且這個程式是讀取六張單張個別的 Cubemap，所以我不用在 maxscript 先行合併起來，省去了一段 maxscript 運算緩慢的時間。 另外要把轉換出來的圖像序列，在編碼成 H.264 影片，畢竟這種 VR 全景的預覽，都是要丟給 GearVR 或者 Kolor 播放器，這邊便使用了已經封裝好的 ffmpeg去做處理，相當簡單方便。 剩下的就是去做 maxscript 跟 windows command line 的整合，並去隱藏或者命名一些檔案讓整個程序看起來簡化一些。 在流程方面的關卡都解決後，遇到擷取 viewport 畫面的問題，要怎麼去偵測使用者的 viewport 設定，並去關閉 viewport 上不必要的資訊，甚至取消背景的漸層，統一 viewport 的燈光，才能讓六張截圖完美融接。 程式碼有大半的行數都是花在這上面：擷取設定-&gt;覆蓋設定-&gt;(截圖)-&gt;還原設定。 尤其有一部份必須調用 DialogMonitorOPS 去做設定，這部分整理了很久才做出很簡潔的 Fuction 去處理。 如果有興趣的話，這邊是 Script 原始檔，可能還有很多 Bug，僅供參考。]]></content>
+      <tags>
+        <tag>3ds max</tag>
+        <tag>maxscript</tag>
+        <tag>vr</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Houdini製作程序性剝皮效果]]></title>
+    <url>%2Fhoudini-peel-effect%2F</url>
+    <content type="text"><![CDATA[前幾天看了一段 breakdown ，看到影片裡18秒處的效果覺得自己應該做得到，就趁工作閒餘試著做了出來，結果一個專案同事看到很喜歡想套到他的專案裡，問題是他想成形的是一個LOGO，而不是像那段影片只是一個簡單重複的圓形，完全不同邏輯的東西，不過這幾天還是硬著頭皮想出了一套製作方法。 下面簡單說明一下整個節點流程，效果就如上面影片，一切的目標方向是以未來還可以套別的模型，完全程序性來製作。 LOGO模型是同事用 3ds max 做的，因為模型最後上了 symmetry ，所以中間有一段 loop edge ，就直接抽出這段 edge ，來當產生點。 接著要找出每個產生點到末端的位置，末端的資訊很重要，影響之後所有的流程。 找到每個產生點的末端後，開始製作每個產生點沿著模型到末端的路徑，這邊是利用 cookie(crease) 的方式產生切線，以 產生點 -&gt; 末端 的向量來旋轉 cookie 的平面，得到切線後，再去判斷切線要留著的段落，讓最後只剩餘產生點到末端的curve。 從上面步驟取得每條導引線後，每條導引線會再複製一份，並取隔壁條導引線的 attribute 覆蓋，這是為了之後要拿兩兩一組導引線 skin 包面。 在這之前要先做導引線的動態，旋轉的方式是以每個點為基準來判斷，每個點的 normal 跟 up 加上總變數 時間點 的影響，依照從屬跟 ramp 的調節，設定出最後旋轉完的位置。 最後是包面，以兩兩一組的導引線做處理，由於導引線的 point 數不一定會一樣，要一樣的 point 數才能用 rails 包面，所以做了一個在不影響外觀的情況下讓兩條導引線補成相同 point 數的運算式。 包面完成後，最後的外觀樣子由於以上流程的種種因素，跟原本的模型一定會有非常細微的差距，這邊再以其中流程產生的豐富資訊，去判斷漸進貼齊原本模型的表面。 最後將其每個點的動態資訊寫在 UV 上，到時匯給 max 可以在模型上套一個 gradient map 貼圖去取得 UV 資訊，再以其作 matte 給 2D 做更多細節修正。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>vex</tag>
+        <tag>tutorial</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[在Houdini壓縮VDB和Volume的容量]]></title>
+    <url>%2Fhoudini-vdb-volume-compress%2F</url>
+    <content type="text"><![CDATA[Pyro 的 resize container 有時候會讓快速物件的 velocity 一直碰壁，造成不好看的動態，在這種時候取消使用 resize container 卻會造成 cache 相當大，整個 cache 明明 density 佔很小一塊，卻保存了整個框架的 velocity，很沒必要。 在 houdini 15，有一個新 sop 可以很簡單解決這件事情，讓 velocity 資訊 clip 到只剩 density 周圍。 上面是一個從原始 cache 輸出 VDB 的壓縮流程，上半部是方才所提到的刪除方式，下半部只把 VDB 壓縮成 16-bit 。 首先先用 volume blur 取出比 density 大一點的範圍，等等要當作 mask。 接著使用 houdini 15 最新出的 volume compress 取剛剛的 mask 去刪除不必要的資訊。 轉成 VDB 後，上一個 primitive 去標記輸出時要存成 16-bit 的屬性。 上面的流程跑完，最後輸出的 VDB 甚至可以達到原本 cache 的十分之一大小。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tip</tag>
+        <tag>vdb</tag>
+        <tag>volume</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Houdini大量Debris匯出給3ds Max、Maya的兩種效率方式]]></title>
+    <url>%2Fhoudini-max-maya-transfer-cache%2F</url>
+    <content type="text"><![CDATA[為了增加碎裂的細節通常會用particle模擬一層debris，再用簡單的幾何形狀去copy。不過如果後端算圖是要給Maya或Max，出alembic交接的話，會是非常龐大的資料量。 這邊介紹一下兩種研究出來的方法。 方法A第一種是只適合在max使用容量最小的方法，需要使用Frost。 先將particle匯出prt ，這邊是以國外強者維護編譯的ROP來執行，要把orient、pscale、id的attribute名稱對映到prt可讀的Orientation、Radius跟ID。 在max裡匯入prt，可以直接在frost裡讀particle檔案，但通常我會創一個prt loader去讀取以便再上magma修改。 只要有Radius跟Orientation通道，再把houdini的碎塊讀進來當custom geometry的source，就可以省下很多資料量達到跟houdini的copy一樣的效果。另外如果custom geometry不只一個，記得要勾選random id，不然採樣模型動起來會閃爍不固定。 方法B 之前有介紹過一種快速輸出point cache的方法，這種方法等於我們只要存一格完整資訊的debris，再用只紀錄頂點位置的point cache去形變即可，容量也是不大。 但這邊有一個非常大的問題：point cache只能相容固定頂點數的模型。 像debris這種particle生成隨時間增加數量的物件，不可能每格一樣多，所以基本上不能使用這種方法。 不過，debris也有一種特性：一旦生成就不會消失，數量只會遞增。 所以我們可以取最後一格的particle當sample，這一格有所有其他格的particle，以id的屬性來跟前面格數一一比對，前面格數沒有的id，就全部生成補上去，然後保存下來，便可以達成全部格數一致，也不會被看見。 這種方法，用python比vex方便很多，所以在這邊就新增一個python sop。 用python的set很輕易地就可以取出每一格沒有的point補上去，因為這邊除了id要特別指定之外 ，大部分attribute預設就是0，scale也會是0不會被看見，就不用再另外指定數值。通過這個python sop，particle數量就一致了，接著處理要instance的碎片部分。 要將碎片複製成與particle一樣數量後，用transform pieces結合起來，如同packed rbd的模擬一樣。首先，碎片先自行經過一次copy，copy的資訊記得要帶上id給primitive，通常還會stamp這id去random每個碎片的旋轉，這邊值得注意的是這copy之前，採樣points的pscale要先全部設為1基準值，並採用最後一格的時間，待會的transform才會正確。複製完後，再把這兩者transform pieces藉由id結合起來，transform pieces的rest points輸入點一定要再接一次剛剛複製用的採樣points，到這邊就可以得到一個跟平常copy方法完全一模一樣位移旋轉的碎塊，卻有固定頂點數。接下來用之前的PC2出法再外加單格fbx，時間跟容量都節省相當多。 以上如果是要匯給max已經作業完成，但如果要給maya，還要把pc2轉換成maya的pointcache檔。 轉換方法很簡單，開啟maya的mel輸入以下指令即可。cacheFile -pc2 1 -pcf “X:/path/debris.pc2” -dir “X:/output_path/” -format “OneFile” -f “cache_name”; 260多萬面的debris，200格的動態，檔案大小只壓縮在3~4GB，而且在max和maya裡都還拖得動。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>3ds max</tag>
+        <tag>tutorial</tag>
+        <tag>maya</tag>
+        <tag>point cache</tag>
+        <tag>python</tag>
+        <tag>frost</tag>
+        <tag>mel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vex在Attribute裡給予Array型態]]></title>
+    <url>%2Fhoudini-vex-attribute-array%2F</url>
+    <content type="text"><![CDATA[例如要給予 int 陣列，打上 ：i@sample[] = array(int1, int2, int3); 即可。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tip</tag>
+        <tag>vex</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Houdini長條物體依方向縮放]]></title>
+    <url>%2Fhoudini-transform-bounding%2F</url>
+    <content type="text"><![CDATA[從前端那邊拿到模型基本上都是一個合併的完整模型，像上圖傳統建築的木頭梁柱，要每一根去縮放做Fracture產生木頭的碎裂形狀，卻是一整個模型沒有軸向。 遇到這樣的狀況其實使用Bound很容易解決。 大概作法就是產生物體的oriented bounding box，取出bounding box的最長邊向量，並將向量代入transform axis去縮放。 將物體分開處理後，產生Bounding box，勾選Oriented Bounding Box這神奇的功能，記得之前在max為了算出動態物件在FumeFX裡最佳化大小的外框有研究過這種東西，很複雜。 在Bounding Box下，每一個point一定會連接三個不同邊長，取出來算出最長邊的向量保存起來。 使用Transform Axis去取資訊，再調整Scale數值即可。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>vex</tag>
+        <tag>tutorial</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[houdini匯入FBX大量節點合併與材質整理]]></title>
+    <url>%2Fhoudini-fbx-manage%2F</url>
+    <content type="text"><![CDATA[最近常處理max或maya的FBX丟進來的場景，通常匯進來的FBX要在另外建一個sop做合併彙整，但必須是一個node對一個object merge來針對各自物件做不同碎裂，如果FBX裏面物件很多，合併起來是相當麻煩的事情，所以這種重複的作業還是寫一個script去處理比較適當。hou.ui.setStatusMessage("Select source node", severity=hou.severityType.Message)source = hou.ui.selectNode()if source != None and source != "": hou.ui.setStatusMessage("Select target node", severity=hou.severityType.Message) target = hou.ui.selectNode()if source == None or source == "" or target == None or target == "": hou.ui.displayMessage("Invalid nodes", ("OK",), hou.severityType.Warning, title="Warning")else: s_node = hou.node(source) t_node = hou.node(target) import_list = [] create_list = [] for child in s_node.children(): if child.type().name() == "geo": import_list.append(child.name()) for node in import_list: m = t_node.createNode("object_merge") create_list.append(m) m.parm("objpath1").set(source + "/" + node) m.parm("xformtype").set(1) chk_merge = hou.ui.displayMessage("Merge all node?", ("Yes", "No"), hou.severityType.Message, title="Warning") if chk_merge == 0: merge = t_node.createNode("merge") for node in create_list: merge.setNextInput(node) t_node.layoutChildren() 另外，FBX匯進來的物件，其物件材質會有兩種情況：如果是單一材質，材質會上在SOP上，如果是多重(multi-ID)材質，他會在SOP裡新增group跟material節點。假如一個FBX包含以上兩種，之後把整個FBX的物件合併，會發現前者的材質沒辦法帶到，因為該物件primitive的shop_materialpath屬性沒有東西，所以必須要針對該物件去寫上屬性，這種事情也是很常發現，故也寫了一個script。hou.ui.setStatusMessage("Select FBX subnetwork", severity=hou.severityType.Message)selectNode = hou.ui.selectNode()if selectNode == None or selectNode == "": hou.ui.displayMessage("Invalid node", ("OK",), hou.severityType.Warning, title="Warning") else: chk_clean = hou.ui.displayMessage("Clean material path?", ("Yes", "No"), hou.severityType.Message, title="Warning") for node in selectNode.children(): if node.type().name() == "geo": mpath = node.parm("shop_materialpath") if mpath.eval() != "": mat = node.path().replace(node.name(), mpath.eval()[3:]) geo_node = None for child in node.children(): if child.isRenderFlagSet(): geo_node = child break mat_node = node.createNode("material") mat_node.parm("shop_materialpath1").set(mat) mat_node.setNextInput(geo_node) mat_node.setRenderFlag(True) mat_node.setDisplayFlag(True) if chk_clean == 0: mpath.set("")]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tip</tag>
+        <tag>fbx</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Houdini純帶頂點動態物件輸出給3ds Max的效率方式]]></title>
+    <url>%2Fhoudini-3dsmax-pointcache%2F</url>
+    <content type="text"><![CDATA[最近案子遇到要將max的建築物在houdini碎完做好動態再輸出回去，整個流程有幾個需要注意的點是： 建築物本身自帶多種材質，也就是在max裡有上多個material ID 物件只有進行碎裂跟位移，面數、頂點數跟其他屬性都是固定無動態 基於第一點，要在max-&gt;houdini-&gt;max的流程下保持材質，FBX可以說是最方便的格式之一，連材質名稱都可以保留(對應primitive的shop_materialpath)，要對回去很方便。 而第二點可以判定說，我們只要一個有完整資訊的物件，再讓houdini輸出point cache去移動頂點可以做到最有效率跟節省空間的方法。 houdini在原先選單輸出帶point cache的FBX會有許多問題，normal有時會跑掉，而且point cache的容量跟輸出速度都異常的大跟久，甚至在max匯入會有後續影格讀不到的問題，完全沒有point cache該有的優勢。 後來解決的方法是利用原先FBX輸出單一無動態物件，再另外以script輸出給max吃純帶位置資訊的point cache，PC2檔案。 本來還想說研究PC2的格式自己去寫，沒想到已經有大神研究好了，如果有興趣可以參閱這篇文章。 在這邊直接引用 glassman3d 大的script：import sysimport structdef doCache(): sf = hou.evalParm("startframe") ef = hou.evalParm("endframe") sr = 1 ns = (ef - sf) + 1 geo = hou.pwd().geometry() points = geo.points() np = len(points) pc2File = open(hou.evalParm("file"), "wb") with hou.InterruptableOperation("PC2 Cache",open_interrupt_dialog=True) as operation: with hou.InterruptableOperation("Exporting %s" % hou.pwd().name(),open_interrupt_dialog=True) as export: # Write header headerFormat='&lt;12siiffi' #headerStr = struct.pack(headerFormat, 'P','O','I','N','T','C','A','C','H','E','2','\0', 1, np, sf, sr, ns) headerStr = struct.pack(headerFormat, "POINTCACHE2\0", 1, np, sf, sr, ns) pc2File.write(headerStr) for f in range(sf, sf+ns, sr): hou.setFrame(f) pos = geo.pointFloatAttribValuesAsString("P") pc2File.write(pos) export.updateProgress( f/ns ) operation.updateLongProgress(0.5 * (f/ns) ) with hou.InterruptableOperation("Finishing",open_interrupt_dialog=True) as finish: pc2File.flush() pc2File.close() finish.updateProgress(1) operation.updateLongProgress(1)]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tip</tag>
+        <tag>3ds max</tag>
+        <tag>point cache</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Maxscript寫俄羅斯方塊]]></title>
+    <url>%2Fmaxscript-tetris%2F</url>
+    <content type="text"><![CDATA[上禮拜為了一個海水模擬的案子需要批次修改模擬框架的參數，想說其實自己這樣houdini、UE4摸下來，也有點程式的概念，就來試著學學看用maxscript來做這些繁複無聊的手工調整。稍微看了一下maxscript的手冊發現意外的好入門，可以很輕鬆地為自己的習慣或需求去做簡單的客製化工具。 在寫出模擬的小工具後就進一步想去寫更多的東西，一種開了一扇新的大門躍躍欲試的感覺。後來摸索maxscript的timer tick時，發現可以拿來寫遊戲，就萌生出寫個俄羅斯方塊當練習的想法。 一開始覺得不難，就方塊往下墜嘛。結果實際動手發現有很多細微的眉眉角角要注意(當然不能使用3D碰撞偵測這些作弊的方法)，方塊的旋轉方式、偵測的問題，本來只是打算當一個晚上的作業結果寫了三、四天，不過總算是告一段落。 script檔案]]></content>
+      <tags>
+        <tag>3ds max</tag>
+        <tag>maxscript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[製作Digital Asset給Maya的Houdini Engine]]></title>
+    <url>%2Fhoudini-engine-maya%2F</url>
+    <content type="text"><![CDATA[看到這個廣告幕後的櫻桃掉到優格上的效果還滿有趣的，不是模擬而是純粹用3ds Max的Genome串出來，就想也來做做看。 手邊沒有Genome，但其實Genome從某角度來說就是讓3ds Max達到Houdini的彈性，那倒不如就用Houdini來試一下。 後來又想到Houdini Engine這強大的東西，不就可以再把效果帶回去Maya、3ds Max、C4D？一直沒親身體驗過，這次也就來測試帶回Maya。 其實原理不難，主要是偵測掉落物(櫻桃)的落點，並針對落點內和落點外去做不同的處理方式。 用ray去偵測落點並區分落點內、落點外，並讓落點內的在碰撞後給予下沉，但不能沉過頭要有黏稠液體的適性。 另外一個處理節點外的波動，從中心到外圍的起伏，用noise增加隨機性，並增加一些之後封裝起來後可調的參數。 封裝後的參數，在parameter增加的folder類型，到Maya裡也會變成Attribute Editor的分隔。 整個效果做完，拉出兩個input以便到Maya可以代入不同物件，其他node都包在jam_sim裡匯出otl檔給Maya的Houdini Engine讀取。 Maya裡讀進來後的參數列表，完全沒變，只是spline parameter變得很不人性化。 兩個Inputs隨意用Maya的基本plane跟sphere代入進去，效果完全一樣，本想說Houdini Engine還是實驗性質的東西，卻沒想到相容性已經非常成熟強大，甚至可以做simulation。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tutorial</tag>
+        <tag>maya</tag>
+        <tag>houdini engine</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[FumeFX的Camera Clipping Plane]]></title>
+    <url>%2Ffumefx-camera-clipping-plane%2F</url>
+    <content type="text"><![CDATA[在unreal4的cinematic demo講解得到的靈感，將fumefx切割成片狀在2D疊回去可以讓後期有許多彈性。 原理就是很簡單的使用Camera的Clipping Plane，但要注意的是要用Vray才能切面，Scanline會切不了。]]></content>
+      <tags>
+        <tag>tip</tag>
+        <tag>3ds max</tag>
+        <tag>fumefx</tag>
+        <tag>after effects</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[FumeFX的場景Pass設定]]></title>
+    <url>%2Ffumefx-pass%2F</url>
+    <content type="text"><![CDATA[最近連續幾個案子有點趕，為了效率就重新回到用FumeFX做特效。 本以為Vray和FumeFX的改版已經可以讓人懶惰一下把場景跟煙一起算，沒想到還是不行，scanline和內建燈光算illumination map的速度快太多了，於是就此機會整理一下如何將場景另出一個給FumeFX並含陰影的檔案。 燈光：內建燈，用Ray Traced Shadows，把Atmosphere Shadows打勾。 場景：套上Matte/Shadow材質，打勾Apply Atmosphere並選擇At ObjectDepth，Object Properties的Cast Shadows取消打勾。 Render Elements：Shadow、FumeFX Fire、FumeFX Smoke(Diffuse、Illumination)、FusionWorks ZDpeth。 如果要出FusionWorks Velocity，模擬的時候就要先存Velocity Channel，接著在Environment and Effects的Atmosphere下的FusionWorks Renderer打勾Create Channels和Image Motion Blur。]]></content>
+      <tags>
+        <tag>tip</tag>
+        <tag>3ds max</tag>
+        <tag>fumefx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[3ds Max的Xmesh匯到Maya]]></title>
+    <url>%2Fmax-xmesh-maya%2F</url>
+    <content type="text"><![CDATA[Xmesh雖然是很方便的格式，但要丟到MAYA去的話可能就有些麻煩了，尤其現在Xmesh MY的資訊幾乎都找不到的情況。 研究之後歸納出了一套很簡單的解決方法，重點就是利用PointCache的格式匯出FBX餵給MAYA。 當然，還是需要用到script，這是一個將多重物件統一匯成單一PointCache並把多重物件合併成一個Editable Mesh的Script。 這個Script幫助我們很快的達到兩個目的： 避免有多個Xmesh都要一一處理PointCache的麻煩。匯出FBX格式時，無法支援Xmesh為基底的物件還要處理怎麼轉成Mesh的手續。 此外，這個Script也可以做為Baked Xmesh物件以加速Viewport效能的功用。 Script執行完後，只要匯出產生的Mesh並在FBX匯出選項選擇PointCache的data就可以很輕鬆的丟進MAYA了。]]></content>
+      <tags>
+        <tag>tip</tag>
+        <tag>3ds max</tag>
+        <tag>maya</tag>
+        <tag>xmesh</tag>
+        <tag>fbx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TP與Rayfire製作複雜切面的鏡子破碎變速動態]]></title>
+    <url>%2Ftp-rayfire-mirror-shatter%2F</url>
+    <content type="text"><![CDATA[因為案子比較趕，Houdini的破碎還沒很了解，加上Rayfire最新版的功能Asperity一直很想嘗試看看，於是就用3ds MAX做。 本來想全程用Rayfire，但Rayfire的製作流程太過於生硬不太能適應修改和流程化，另外物理引擎跟TP比起來也比較不適宜這次的狀況，尤其在大量碎裂與強調摩擦性的時候，所以就以Rayfire做碎裂與模擬完的切面細緻化，TP模擬動態的方式來製作。 很久沒用3ds MAX，會發現做模擬的過程跟Houdini比較之下，3ds MAX比較不穩定容易死當或者某些流程往往都是單核心在跑，故此需要找一些script來操作避掉一些內建指令的癥結點。 做碎裂時先疊了多層不同的Rayfire Fragmenter，有Cube、Uniform、Radial等不同型態去做疊加嘗試，另外都把碎面的Material ID都設成2，最後需要再上個Edit Poly去把非ID2的面都設成ID1。 再利用Rayfire Tool把Element都Detach出來，之後給個Multi/Sub-Object材質，因為TP將物件轉成Particle的時候不會自己分辨ID，不知道為什麼，務必要先上Multi/Sub-Object他才會辨認。 接著在TP簡單的做個模擬動態，確定好模擬的動態後Export成物件，要再用Rayfire Asperity加工切面。Export的時候要注意如果模擬時有Cache MasterDynamic要先把Cache unset，不然Bake不出東西。 TP Export出的碎塊在這邊有4878個，不可能每個都做切面的加工，一來太耗費效能甚至會當機(3ds MAX嘛)，二來太過細小的碎塊做加工反而會變畸形，所以我是取體積在一定大小以上的碎塊才做加工。 當然，這邊就要靠Script，3ds MAX的強大之一就在於大量的Script支援。(Select By Size / Volume) 篩選完之後，通常會給這些篩選完的物件一個Selection Set以防萬一。 TP Export出來的物件Scale是很雜亂的，在一般情況下是沒有關係，但因為我們這邊要套上Rayfire Asperity細分切面，而Asperity的操作參數是基於點線面的距離跟面積，所以在加工之前還要先做Transform歸零的動作(Reset XForm和Collapse)。 接著準備套上Asperity，先複製其中一塊碎塊加上Asperity調整參數當作樣本，等等再把這個樣本的Asperity Modifier複製給其他碎塊，不然一次套上兩千來個再來調整參數會慢得很可怕。 不過3ds MAX預設中是無法一次把Modifier貼給複數物件的，所以這裡也需要Script。(Modifier Instancer) 題外話，在3ds MAX處理大量物件時，特別是選起來的時候，最好右側的Command Panel的Tab是處在Create而不是Modify，節省效能避免當機。 Rayfire Asperity的參數中，把Border Weight調高增加碎裂邊緣不規則，並視座標軸方向把XYZ其中一個的Strength調0避免影響鏡面的平整(通常是Y)。但這樣調有些鏡面還是會有一些三角面的現象，這時候就要把有問題的面選起來，做Tessellate解決這個問題。 最後，把調整完的碎塊轉成單一Xmesh，一來節省效能，二來還可以再做變速，變速記得Xmesh的Loading Mode要改成Frame Interpolation。 Render的部分是用Vray，針對切面的材質有在Bump加VrayEdgeTex讓切面三角面不至於太明顯銳利。]]></content>
+      <tags>
+        <tag>3ds max</tag>
+        <tag>tp</tag>
+        <tag>rayfire</tag>
+        <tag>tutorial</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[將Particle Instance Object轉換成Cloth Object]]></title>
+    <url>%2Fparticle-instance-to-cloth%2F</url>
+    <content type="text"><![CDATA[這邊要做的是，先產生承繼smoke動態的particle，再將particle取代成紙片，然後在紙片既有動態基礎上加上cloth模擬。 所遇到的困難是，particle不是第一格就全部出現，而是陸續出現，怎麼在Cloth DOP模擬裡取得所有紙片以及其target動態。目前研究出的方法還有幾個限制：Particle不能被刪掉、一個frame只能有一個Particle產生。 創建一個DOP，製作advect by volume的Particle讓之後的紙片可以Copy其動態。 記得Particle不能中途刪掉，要保存到最後。 創建一個SOP，製作紙片並 Copy Particle的資訊，Copy節點的”Use Template Point Attributes”要勾起來去繼承Particle的屬性。 接下來要分成兩支線製作，分別要餵給衣物模擬的Initial Geometry跟Target Geometry Initial Geometry：這是要讓Cloth產生物件的節點，所以只要Particle產生的那格有物件就好，加一個delete，內容是當”has pprevious”大於0的時候就刪掉。 Target Geometry：這是要讓Cloth讀取物件動態的節點，這邊要先把每個物件分開，等等才能讓每個紙片各別取得自己的動態。方法是在copy節點的Attribute tab裡的”To Primitive”加上id，並用Partition以Primitives的$ID來分group，接著要Extract出每個group的SOP，這裡有網友寫好的Shelf可以快速做到這件事情。 創建一個DOP模擬衣物，在Cloth Object需要一些設定去讓剛剛製作的SOP可以正常模擬。 先是設定Creation tab，”Creation Frame”要改成$F，讓模擬每格都會偵測SOP的物件。 這樣會造成的問題是，就算某格沒有物件，他依然會創建一個空白的DynamicOBJ，打亂等等要用來讀取Target的$OBJID。 所以在下面的”Number of Objects”中去做調整，當這格SOP的Initial Object裡沒有東西時，就設成0，不要產生物件。這邊簡單的使用npoints判別。 接下來在Geometry tab裡的”Initial Geometry”指定剛剛用好的SOP，而”Target Geometry”指定為剛剛用shelf產生的group，而各自object辨別方式就是在group的最後數字編號改成$OBJID，即完成。 整個方法就是圍繞在$OBJID和group編號要一致的基礎上，但因此沒辦法同一格產生兩個Particle，因為對Particle DOP來說是產生兩個PID，對Cloth DOP來說是產生同一個OBJID，就無法對應。Particle不能刪掉也是如此。這方面還要再繼續研究解決。 目前的方向是不使用OBJID，而是取自己geometry層裡的attribute去調整看看。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tutorial</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[在Dopnet裡處理Geometry資訊]]></title>
+    <url>%2Fdop-object-data%2F</url>
+    <content type="text"><![CDATA[之前都沒遇過要在Dopnet就先處理object的情況。 這次要做大量紙片產生的cloth模擬，一定要在dopnet裡就先把超出範圍的object先刪掉不然會太吃資源。 很簡單的想法就是把低於地面的物件group起來再行刪除，問題是在於怎麼在group node裡判斷OBJ的位移資訊。 最後找到取出SOP資料的路徑寫法：$DOPNET + &quot;:&quot; + $OBJID + &quot;/Geometry&quot; 在這邊我是填上pointavg($DOPNET+“:”+$OBJID+“/Geometry”,P,1) &lt; 0 取出一個OBJ所有點的Y位移平均值小於0的就會被刪除。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tip</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用Vex求兩向量的夾角度數]]></title>
+    <url>%2Fvex-vector-degrees%2F</url>
+    <content type="text"><![CDATA[在出PASS的時候，想出一個物體的正反面給後期合成使用，研究了一下發現似乎沒有相應的屬性，只好自己接出來。 方法很簡單，取得物體的Normal向量和物體對攝影機位置的向量，再判斷兩向量之間的夾角度數，大於或等於九十度的時候就等於是翻面了。 理論上很基本，但數學這科目離我真的太遙遠了，惡補爬文了一下，得到在VEX的公式：degrees(acos(dot(normalize(vector A), normalize(vector B )) 在VOPSOP中我是這樣接： 攝影機的center減掉P取得物體對攝影機的向量，跟Normal都做normalize後，用Dot Product相接，再用Trigonometric Functions的Arc Cosine得到角度，最後再用Radians To Degrees轉成度數。 接下來再判斷是否大於等於90度來在VEX shader做輸出得到首圖右側Pass。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tip</tag>
+        <tag>vex</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初學Houdini的一些小筆記]]></title>
+    <url>%2Flearn-houdini%2F</url>
+    <content type="text"><![CDATA[最近做的測試在cache particle的時候負載很重，整個序列200多GB不管是要net render還是複製丟給多台運算都是很大的問題，才了解attribute雖然很方便但也會增加不少容量，因此要時時優化。 隨時按中鍵查看每個節點增加的記憶體。 盡量避免在VEX shader再做串連，像Particle Age這種東西，事先在SOP做好的話，就可以刪掉life跟age省掉一些空間。 Cache的時候如果整個project就是等放算，可以直接cache最尾端的node減少不必要的運算，而一些attribute也可以cast成16bit。 Shelf產生的模擬sop常讀取了很多不必要的東西，像Smoke就不需要fuel，能刪就刪。 參數一次調一項，不要盲目的連續調下去，有點耐心。 別抱持著只是測試的心態，隨時整理排列好檔名節點等。 衣服模擬務必轉成三角面，quad的結果很生硬。 模擬完的結果可以相互morph修整，但注意normal有沒有recompute。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tip</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初學Houdini的一些小筆記]]></title>
+    <url>%2Flearn-houdini%2F</url>
+    <content type="text"><![CDATA[最近做的測試在cache particle的時候負載很重，整個序列200多GB不管是要net render還是複製丟給多台運算都是很大的問題，才了解attribute雖然很方便但也會增加不少容量，因此要時時優化。 隨時按中鍵查看每個節點增加的記憶體。 盡量避免在VEX shader再做串連，像Particle Age這種東西，事先在SOP做好的話，就可以刪掉life跟age省掉一些空間。 Cache的時候如果整個project就是等放算，可以直接cache最尾端的node減少不必要的運算，而一些attribute也可以cast成16bit。 Shelf產生的模擬sop常讀取了很多不必要的東西，像Smoke就不需要fuel，能刪就刪。 參數一次調一項，不要盲目的連續調下去，有點耐心。 別抱持著只是測試的心態，隨時整理排列好檔名節點等。 衣服模擬務必轉成三角面，quad的結果很生硬。 模擬完的結果可以相互morph修整，但注意normal有沒有recompute。]]></content>
+      <tags>
+        <tag>houdini</tag>
+        <tag>tip</tag>
+      </tags>
+  </entry>
+</search>

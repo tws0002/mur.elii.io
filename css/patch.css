@@ -1,0 +1,94 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+body, .post-body {
+    font-family: "Helvetica", "Noto Sans TC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 18px;
+}
+
+.site-title {
+    font-family: "Helvetica", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica", "Noto Sans TC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+div.post-body h2 {
+    font-size: 1.2em;
+}
+
+pre, code {
+    font-family: consolas, Menlo, "Noto Sans TC", "PingFang SC", "Microsoft YaHei", monospace;
+}
+
+.container .main-inner {
+    display: flex;
+    justify-content: center;
+}
+#sidebar {
+    position: relative;
+    right: -6px;
+    clear: both;
+}
+#content {
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+video {
+    width: 100%;
+}
+
+div.post-body > h1, h2{
+    padding-top: 2em !important;
+}
+
+.post-meta {
+    margin: 5px 0 !important;
+}
+
+span.post-meta-item-text,
+div.site-author {
+    display: none;
+}
+
+img {
+    border: 0 !important;
+}
+
+span.post-tags-head {
+    display: none;
+}
+
+.feed-link a {
+    color: #555;
+}
+.fa-feed:before, .fa-rss:before {
+    color: #555;
+}
+
+::selection {
+    background: #fc6423;
+    color: #fff;
+}
+
+.links-of-author {
+    margin-top: 0;
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 2s;
+    transition-delay: 1s;
+}
+
+#menu {
+    margin-bottom: 5px;
+}
+
+#overbar .sidebar-inner {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+#overbar .back-to-top {
+    display: none;
+}

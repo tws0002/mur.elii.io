@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="入手iphone X後，前幾天開始好奇是不是可以來玩些什麼，於是去翻翻關於臉部追蹤的資料庫，發現蘋果對於這塊的API寫得很好，可以輕鬆取得相關追蹤資訊。於是就研究了些方法，讓資料可以帶到Houdini。 紀錄一下這幾天研究的一些心得。">
+<meta name="keywords" content="houdini,vex,tutorial,python,swift,ar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="將iPhone X的臉部追蹤資訊匯到Houdini處理">
+<meta property="og:url" content="https://mur.elii.io/iphone-x-face-tracking-capture-houdini/index.html">
+<meta property="og:site_name" content="eli&#39;s murmur">
+<meta property="og:description" content="入手iphone X後，前幾天開始好奇是不是可以來玩些什麼，於是去翻翻關於臉部追蹤的資料庫，發現蘋果對於這塊的API寫得很好，可以輕鬆取得相關追蹤資訊。於是就研究了些方法，讓資料可以帶到Houdini。 紀錄一下這幾天研究的一些心得。">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://mur.elii.io/iphone-x-face-tracking-capture-houdini/02.jpg">
+<meta property="og:image" content="https://mur.elii.io/iphone-x-face-tracking-capture-houdini/03.jpg">
+<meta property="og:image" content="https://mur.elii.io/iphone-x-face-tracking-capture-houdini/03_.jpg">
+<meta property="og:image" content="https://mur.elii.io/iphone-x-face-tracking-capture-houdini/04.jpg">
+<meta property="og:image" content="https://mur.elii.io/iphone-x-face-tracking-capture-houdini/05.jpg">
+<meta property="og:image" content="https://mur.elii.io/iphone-x-face-tracking-capture-houdini/06.jpg">
+<meta property="og:image" content="https://mur.elii.io/iphone-x-face-tracking-capture-houdini/07.png">
+<meta property="og:updated_time" content="2018-04-21T13:33:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="將iPhone X的臉部追蹤資訊匯到Houdini處理">
+<meta name="twitter:description" content="入手iphone X後，前幾天開始好奇是不是可以來玩些什麼，於是去翻翻關於臉部追蹤的資料庫，發現蘋果對於這塊的API寫得很好，可以輕鬆取得相關追蹤資訊。於是就研究了些方法，讓資料可以帶到Houdini。 紀錄一下這幾天研究的一些心得。">
+<meta name="twitter:image" content="https://mur.elii.io/iphone-x-face-tracking-capture-houdini/02.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="eli's murmur" type="application/atom+xml" />
+
+
+
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>將iPhone X的臉部追蹤資訊匯到Houdini處理 | eli's murmur</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+  <link rel="stylesheet" type="text/css" href="/css/patch.css">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">eli's murmur</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />tags<span class="badge">33</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />posts<span class="badge">30</span></a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+
+  
+      <div class="links-of-author menu-item" style="opacity: 1;">
+        
+          <span class="links-of-author-item">
+            <a href="https://github.com/elishahung" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="mailto:mrhchief@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://vimeo.com/elishahung" target="_blank" title="Vimeo"><i class="fa fa-fw fa-vimeo"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://instagram.com/elishahung" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://www.flickr.com/photos/mrhchief" target="_blank" title="Flickr"><i class="fa fa-fw fa-flickr"></i></a>
+            
+          </span>
+        
+      </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mur.elii.io/iphone-x-face-tracking-capture-houdini/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="eli's murmur">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">將iPhone X的臉部追蹤資訊匯到Houdini處理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-11-19 07:26:34" itemprop="dateCreated datePublished" datetime="2017-11-19T07:26:34+08:00">2017-11-19</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="video-container"><iframe src="//player.vimeo.com/video/242626624" frameborder="0" allowfullscreen></iframe></div>
+<p>入手iphone X後，前幾天開始好奇是不是可以來玩些什麼，於是去翻翻關於臉部追蹤的資料庫，發現蘋果對於這塊的API寫得很好，可以輕鬆取得相關追蹤資訊。於是就研究了些方法，讓資料可以帶到Houdini。</p>
+<p>紀錄一下這幾天研究的一些心得。</p>
+<a id="more"></a>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>上面的影片是用擷取好的資料在houdini重現，另外將捕捉時的圖像序列存下來，放在旁邊對照，造成有些人誤會是即時的。</p>
+<p>但的確有另外做即時串流的捕捉模式，如下圖範例，不過就沒有辦法串流圖像，可以看到臉部生硬很多。(格率不夠是quicktime擷取4K螢幕的問題，手機APP跟伺服器當下是每秒60格運作的)<br><video src="/iphone-x-face-tracking-capture-houdini/01.mp4" autoplay loop></video></p>
+<p>先附上這次的<a href="https://github.com/elishahung/FaceCaptureX" target="_blank" rel="noopener">GitHub原始碼</a>，程式基礎很淺，有點亂請見諒。</p>
+<p>整體的流程，分客戶端跟伺服器端：</p>
+<ul>
+<li>客戶端：在iphone X上寫一個APP，可以將臉部的追蹤資訊以串流送出或者儲存在手機。</li>
+<li>伺服器端：在houdini上讀取資料，串流模式下架設伺服器接收臉部資訊封包，並將資料轉換成動態。</li>
+</ul>
+<h1 id="客戶端-iPhone-Swift"><a href="#客戶端-iPhone-Swift" class="headerlink" title="客戶端(iPhone, Swift)"></a>客戶端(iPhone, Swift)</h1><h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><img src="/iphone-x-face-tracking-capture-houdini/02.jpg">
+<p>陽春的介面：錄製模式、串流模式、細節設定，和一顆錄製Capture按鈕</p>
+<p>臉部追蹤的部分是用到ARKit(連接SceneKit)，這邊蘋果已經幫我們準備得非常完善，追蹤運算那些深層都不用管，只要拿結果資料就好。</p>
+<p>ARKit的細節就不詳述了，<a href="http://blog.csdn.net/u013263917/article/details/73038519" target="_blank" rel="noopener">網路上有非常多文章寫得不錯</a>，<a href="https://developer.apple.com/videos/play/fall2017/601/" target="_blank" rel="noopener">WWDC2017也有很多長知識的影片</a>。現在相關文章大多都是一般的場景AR，而不是關於臉部的AR，不過大同小異，基礎的架構是一致的，蘋果研發網站的文件相當齊全，<a href="https://developer.apple.com/documentation/arkit/creating_face_based_ar_experiences" target="_blank" rel="noopener">也有範例檔案跟說明</a>，幾小時就能上手。</p>
+<p>接下來所說的大部分在GitHub的程式碼都有註解，不再多做贅述。</p>
+<p>客戶端這邊的流程是：</p>
+<blockquote>
+<p>從AR框架取得資訊 -&gt; 將資訊整理 -&gt; 看是要串流封包給伺服器還是存檔在應用程式資料夾</p>
+</blockquote>
+<p>要取得的有：<strong>臉部頂點資訊、臉部transform、臉部blendshape資料、攝影機transform、攝影機圖像</strong></p>
+<h2 id="臉部頂點資訊"><a href="#臉部頂點資訊" class="headerlink" title="臉部頂點資訊"></a>臉部頂點資訊</h2><p>ARKit主要的追蹤資料是存在<code>ARSession.currentFrame</code>裡面，也就是目前當格的追蹤資訊(<code>ARSession</code>預設捕捉是每秒60格)，臉部追蹤時只會有一個<code>ARAnchor</code>，如果畫面有兩個臉也只會針對比較明顯的去做追蹤， 而臉部的<code>ARAnchor</code>有一個專屬繼承類別叫<code>ARFaceAnchor</code>，就存有臉部模型與頂點位置資訊，用<code>ARFaceAnchor.geometry.vertices</code>可取出向量陣列。</p>
+<h2 id="臉部transform"><a href="#臉部transform" class="headerlink" title="臉部transform"></a>臉部transform</h2><p>方才只有臉部頂點的資訊，類似表情這樣(<a href="https://vimeo.com/242460460" target="_blank" rel="noopener">像這影片</a>)，那還需要旋轉位移等資訊才能移動頭部，同上從<code>ARAnchor.transform</code>拿到matrix4資訊。</p>
+<h2 id="臉部blendshape"><a href="#臉部blendshape" class="headerlink" title="臉部blendshape"></a>臉部blendshape</h2><p>除了頂點資訊來做表情，還有更原生的blendshape資料可以拿，詳細的blendshape列表<a href="https://developer.apple.com/documentation/arkit/arfaceanchor.blendshapelocation" target="_blank" rel="noopener">可以查看蘋果研發網站</a>，還會有圖片清楚示意每個blendshape的morph。這個資料一樣要從<code>ARFaceAnchor.blendShapes</code>取得(得到的類型是字典)。</p>
+<h2 id="攝影機transform"><a href="#攝影機transform" class="headerlink" title="攝影機transform"></a>攝影機transform</h2><p>跟臉部一樣，是matrix4，這個攝影機資訊拿到是要在houdini裡面做投影貼圖用，結合待會要說的攝影機圖像。<code>ARSession.currentFrame.camera</code>可以拿到<code>ARCamera</code>，就是追蹤環境下當格的攝影機資料(還有追蹤狀況品質等)，再從<code>ARCamera.transform</code>取得位移。</p>
+<h2 id="攝影機圖像"><a href="#攝影機圖像" class="headerlink" title="攝影機圖像"></a>攝影機圖像</h2><p>從<code>ARSession.currentFrame.captureImage</code>得到當格追蹤參考的圖像，解析度是1280x720，比較要注意的是取得的型態是YUV的<code>CVPixelBuffer</code>，要存成JPG或PNG需要再進行一些步驟，寫在GitHub原始檔的<code>Extensions.swift</code>裡。</p>
+<img src="/iphone-x-face-tracking-capture-houdini/03.jpg">
+<p>取得資訊後，要轉換成字串以便寫成檔案或串流，詳細的方法也寫在<code>Extension.swift</code>裡，就是很陽春的轉成字串並分隔，時間格由每行分開，每種資料之間由”~”分開，資料自己再以”:”分開。<br>浮點數包含”e”這種的轉成字串沒有關係，houdini是可以轉回去的，blendshape資訊也是如此。</p>
+<p>取得資訊、資訊轉成字串都好了，接下來是輸出。<br>分成兩類：<strong>Record錄製、Stream串流</strong></p>
+<h2 id="Record錄製"><a href="#Record錄製" class="headerlink" title="Record錄製"></a>Record錄製</h2><p>錄製比較需要的是可以自訂FPS，用<code>Timer.scheduledTimer</code>去做到這點。</p>
+<p>錄製的流程是：每次執行捕捉時都將資料暫存陣列，而攝影機圖像就先存成JPG。錄製完後，將捕捉暫存陣列轉換成字串寫成txt文字檔，跟方才陸續存成的圖像序列都放在APP下documentary建立資料夾打包。</p>
+<p>每格的圖像處理是另外的queue去跑，主執行還是跑捕捉，只是會把圖像資料丟給這個queue，queue再自行轉成jpg跟寫檔，queue在執行這過程要再包一個<code>autoreleasepool</code>，不包的話，跑<code>UIImageJPEGRepresentation</code>會讓記憶體瞬間衝滿，不會釋放。</p>
+<img src="/iphone-x-face-tracking-capture-houdini/03_.jpg">
+<p>錄製的檔案以錄製時間分類資料夾，從itunes可以輕易取出</p>
+<h2 id="Stream串流"><a href="#Stream串流" class="headerlink" title="Stream串流"></a>Stream串流</h2><p>串流這塊很棘手，其實這幾天研究下來有絕大部分的時間都在處理這塊，對於網路和檔案傳送這塊不是很了解。</p>
+<p>跟錄製從<code>Timer.scheduledTimer</code>執行不一樣的是，串流是由<code>ARSession</code>的<code>delegate：didupdate</code>來執行，也就是捕捉的每格都會串流，來做到最即時的反應。</p>
+<p>用<code>Stream.getStreamsToHost</code>取得outputStream連接伺服器端，再將取得的資料轉成字串輸出，而每格的總執行時間要低於0.016秒，才能穩定60格輸出。當然還有傳的資料最後加上結尾字符，跟出錯時提醒伺服器停止接收等必須動作。<br>至於圖像的串流目前能力還做不到。</p>
+<h1 id="伺服器端-Houdini-Python-Vex"><a href="#伺服器端-Houdini-Python-Vex" class="headerlink" title="伺服器端(Houdini, Python, Vex)"></a>伺服器端(Houdini, Python, Vex)</h1><h2 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h2><p>伺服器端完全在houdini裡面搭建，先建立整體架構，用Python SOP匯入錄製資料，串流部分則利用<code>hou.session</code>(python source editor)完成接收伺服器的編寫。<br>blendshape資訊在這流程下其實沒有用到，只是提供一個取出來的方法，以供之後有搭配rig的角色使用。</p>
+<p>整體節點如下圖所示：<br><img src="/iphone-x-face-tracking-capture-houdini/04.jpg"><br>由讀取臉部模型的faceGeo當起始，以<strong>Record錄製</strong>跟<strong>Stream串流</strong>兩種模式來分成兩大區塊。</p>
+<p><strong>faceGeo</strong><br>讀取一個臉部模型的bgeo.sc檔案(GitHub有附)，這是利用Xcode擷取出Scenekit的Collada檔案轉換而來，也就是<code>ARFaceGeometry</code>的模型。目前還不知道怎麼利用Model I/O匯出模型，既然臉部頂點都一樣，都是用同一個拓樸去貼合臉型，就沒必要每次都擷取模型。</p>
+<h2 id="Record-Mode區塊"><a href="#Record-Mode區塊" class="headerlink" title="Record Mode區塊"></a>Record Mode區塊</h2><p><strong>material</strong><br>上一個unlit材質，並上臉部貼圖，材質的貼圖路徑是跟getRecordData連動的(去取得該路徑資料夾下的臉部圖像序列)。</p>
+<p><strong>getRecordData</strong><br>Python Sop，這區塊的核心，選擇錄製資訊的資料夾，之後都幫你轉換好。滿意外的是貌似只讀取一次文字檔，之後拖曳時間軸順暢沒壓力，也不會有重複硬碟讀取。<br>這邊是去抓指定資料夾裡的faceData.txt，並將資料解析給各頂點設定位置，然後將攝影機跟臉部的transform跟blendshapes給放到detail屬性裡。<br><img src="/iphone-x-face-tracking-capture-houdini/05.jpg"><br>houdini 16.5新增的選擇資料夾parm，突破以往只能選檔案的限制，也使得這個hip只能用16.5開啟。</p>
+<p><strong>vex_faceAni</strong><br>然後將已經移動完位置的頂點套上臉部matrix資訊。</p>
+<p><strong>vex_camTrans</strong><br>將攝影機的matrix解出位移跟旋轉，其實AR攝影機只會有旋轉的資訊。這個資訊會套在根路徑的投影貼圖專用攝影機。</p>
+<p><strong>vex_projectUV</strong><br>投影貼圖的攝影機套上位移後，取得攝影機跟頂點的相對位置，投影成頂點的uv。這樣錄製的部分就完成了。</p>
+<h2 id="Stream-Mode區塊"><a href="#Stream-Mode區塊" class="headerlink" title="Stream Mode區塊"></a>Stream Mode區塊</h2><p><strong>useMapping</strong><br>因為串流模式沒有串流貼圖，可以先用錄製模式取得的某格貼圖跟uv去上在模型上。</p>
+<p><strong>streamServer</strong><br>這區塊的核心，伺服器IP設定、開關控制，以及用接收的資訊去驅動模型。<br>在這邊新增按鈕，跟<code>hou.session</code>做連動控制伺服器的開關跟設定IP，並有一個隱藏的字串<code>parm(&quot;datas&quot;)</code>去接受串流得到的捕捉資訊，code的wrangle部分再用這個<code>parm(&quot;datas&quot;)</code>去移動頂點。<br><img src="/iphone-x-face-tracking-capture-houdini/06.jpg"></p>
+<p><strong>hou.session module</strong><br>跟iPhone X 串流溝通的部分是寫在這裡，也就是存在hip本身裡面的python檔，將公式定義在這裡，方便修改以及跟streamServer節點的按鈕連動。<br><img src="/iphone-x-face-tracking-capture-houdini/07.png"></p>
+<p>接收的伺服器制定了兩個執行緒，一個執行緒持續接收iPhone X這邊的封包，並將接收好的封包丟在一個queue，另一個執行緒持續等著這個queue，這個queue一有東西便馬上拿出來放到streamServer的<code>parm(&quot;datas&quot;)</code>裡。<br>這邊兩個執行緒都會持續播報每秒執行的資料數量，正常來說應該都要是print <code>60, 60，</code>而houdini viewport更新的部分可能礙於顯示效能，會是30~60fps跑。</p>
+<p>伺服器端的部分大抵是這樣，其實東西都很簡單，但學習串流的部分花了很多時間，到目前為止其實都還不算穩定，有時候也會因不明原因延遲，要重新接幾次才會順暢60格跑。至於圖像串流，曾經試過將圖像轉成jpg後用base64方式去傳，但都會略高於1/60秒的處理時間，更何況還有houdini這邊圖像更新所需的時間，還是將這種事情留給unreal或者unity做吧。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/houdini/" rel="tag"># houdini</a>
+          
+            <a href="/tags/vex/" rel="tag"># vex</a>
+          
+            <a href="/tags/tutorial/" rel="tag"># tutorial</a>
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/swift/" rel="tag"># swift</a>
+          
+            <a href="/tags/ar/" rel="tag"># ar</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/houdini-crop-tondc-particle/" rel="next" title="Houdini針對攝影機範圍做粒子的裁切輕量化">
+                <i class="fa fa-chevron-left"></i> Houdini針對攝影機範圍做粒子的裁切輕量化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/deadline-houdini-intergration/" rel="prev" title="Deadline跟Houdini連動筆記">
+                Deadline跟Houdini連動筆記 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+
+    
+
+    
+
+    <div class="sidebar-inner">
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#客戶端-iPhone-Swift"><span class="nav-number">2.</span> <span class="nav-text">客戶端(iPhone, Swift)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概要"><span class="nav-number">2.1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#臉部頂點資訊"><span class="nav-number">2.2.</span> <span class="nav-text">臉部頂點資訊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#臉部transform"><span class="nav-number">2.3.</span> <span class="nav-text">臉部transform</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#臉部blendshape"><span class="nav-number">2.4.</span> <span class="nav-text">臉部blendshape</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攝影機transform"><span class="nav-number">2.5.</span> <span class="nav-text">攝影機transform</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攝影機圖像"><span class="nav-number">2.6.</span> <span class="nav-text">攝影機圖像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Record錄製"><span class="nav-number">2.7.</span> <span class="nav-text">Record錄製</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stream串流"><span class="nav-number">2.8.</span> <span class="nav-text">Stream串流</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伺服器端-Houdini-Python-Vex"><span class="nav-number">3.</span> <span class="nav-text">伺服器端(Houdini, Python, Vex)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概要-1"><span class="nav-number">3.1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Record-Mode區塊"><span class="nav-number">3.2.</span> <span class="nav-text">Record Mode區塊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stream-Mode區塊"><span class="nav-number">3.3.</span> <span class="nav-text">Stream Mode區塊</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+
+    
+
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eli</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

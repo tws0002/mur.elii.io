@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="比起一般360影片，正面180度的立體影片可說是沉浸感更高的影片類型，一般360只是像在一個球形螢幕裡面四周看，而立體影片會讓你身歷其境，或許一開始會有只有180度的疑慮，但其實稍微左顧右盼已經足夠，很少會有想轉到身後的時候。 PIXPRO SP360 4K是一台可以錄製超廣角的運動攝影機，也可以買兩台同時攝影，縫成360環景影片。但它其實也非常適合去錄製雙眼立體正面180度VR影片。 下面便介">
+<meta name="keywords" content="python,vr,vive,camera">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Pixpro SP360 4K錄製立體180度VR影片">
+<meta property="og:url" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/index.html">
+<meta property="og:site_name" content="eli&#39;s murmur">
+<meta property="og:description" content="比起一般360影片，正面180度的立體影片可說是沉浸感更高的影片類型，一般360只是像在一個球形螢幕裡面四周看，而立體影片會讓你身歷其境，或許一開始會有只有180度的疑慮，但其實稍微左顧右盼已經足夠，很少會有想轉到身後的時候。 PIXPRO SP360 4K是一台可以錄製超廣角的運動攝影機，也可以買兩台同時攝影，縫成360環景影片。但它其實也非常適合去錄製雙眼立體正面180度VR影片。 下面便介">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/01.jpg">
+<meta property="og:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/02.jpg">
+<meta property="og:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/03.jpg">
+<meta property="og:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/04.jpg">
+<meta property="og:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/05.jpg">
+<meta property="og:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/06.jpg">
+<meta property="og:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/07.png">
+<meta property="og:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/08.jpg">
+<meta property="og:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/09.png">
+<meta property="og:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/10.png">
+<meta property="og:updated_time" content="2018-04-21T18:03:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用Pixpro SP360 4K錄製立體180度VR影片">
+<meta name="twitter:description" content="比起一般360影片，正面180度的立體影片可說是沉浸感更高的影片類型，一般360只是像在一個球形螢幕裡面四周看，而立體影片會讓你身歷其境，或許一開始會有只有180度的疑慮，但其實稍微左顧右盼已經足夠，很少會有想轉到身後的時候。 PIXPRO SP360 4K是一台可以錄製超廣角的運動攝影機，也可以買兩台同時攝影，縫成360環景影片。但它其實也非常適合去錄製雙眼立體正面180度VR影片。 下面便介">
+<meta name="twitter:image" content="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/01.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="eli's murmur" type="application/atom+xml" />
+
+
+
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>用Pixpro SP360 4K錄製立體180度VR影片 | eli's murmur</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+  <link rel="stylesheet" type="text/css" href="/css/patch.css">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">eli's murmur</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />tags<span class="badge">33</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />posts<span class="badge">30</span></a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+
+  
+      <div class="links-of-author menu-item" style="opacity: 1;">
+        
+          <span class="links-of-author-item">
+            <a href="https://github.com/elishahung" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="mailto:mrhchief@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://vimeo.com/elishahung" target="_blank" title="Vimeo"><i class="fa fa-fw fa-vimeo"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://instagram.com/elishahung" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://www.flickr.com/photos/mrhchief" target="_blank" title="Flickr"><i class="fa fa-fw fa-flickr"></i></a>
+            
+          </span>
+        
+      </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mur.elii.io/pixpro-sp360-4k-180-vr-video/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="eli's murmur">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用Pixpro SP360 4K錄製立體180度VR影片
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-12-20 06:38:43" itemprop="dateCreated datePublished" datetime="2016-12-20T06:38:43+08:00">2016-12-20</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="/pixpro-sp360-4k-180-vr-video/01.jpg">
+<p>比起一般360影片，正面180度的立體影片可說是沉浸感更高的影片類型，一般360只是像在一個球形螢幕裡面四周看，而立體影片會讓你身歷其境，或許一開始會有只有180度的疑慮，但其實稍微左顧右盼已經足夠，很少會有想轉到身後的時候。</p>
+<p>PIXPRO SP360 4K是一台可以錄製超廣角的運動攝影機，也可以買兩台同時攝影，縫成360環景影片。但它其實也非常適合去錄製雙眼立體正面180度VR影片。</p>
+<p>下面便介紹硬體設備的準備，以及影片處理的一些流程。</p>
+<a id="more"></a>
+<h1 id="硬體設備"><a href="#硬體設備" class="headerlink" title="硬體設備"></a>硬體設備</h1><h2 id="Kodak-SP360-4K"><a href="#Kodak-SP360-4K" class="headerlink" title="Kodak SP360 4K"></a>Kodak SP360 4K</h2><img src="/pixpro-sp360-4k-180-vr-video/02.jpg">
+<p>SP360 4K(特別指雙機組)非常適合拿來拍攝180度VR立體影片。</p>
+<ul>
+<li>單機拍攝具有235度的視野。</li>
+<li>有遙控器可以同時控制兩台錄製(大約只會有1~2格時間差)。</li>
+<li>拍出來是2880x2880的魚眼原始檔，易於後期處理，甚至可以做出5760x2880的高解析影片。</li>
+<li>可能因為規格特別，還需要兩台才能拍360比較麻煩，較不受消費者青睞，價錢下殺頗大。</li>
+</ul>
+<h2 id="立體支架"><a href="#立體支架" class="headerlink" title="立體支架"></a>立體支架</h2><p>有了兩台SP360 4K跟遙控器，接下來需要可以讓兩個攝影機平行拍攝的支架。</p>
+<p>目前能找得到的專用支架都是3D列印的，一種是可以從eBay、淘寶購得，另一種是這位<a href="http://rocketpictures.net/3D/" target="_blank" rel="noopener">Mark先生的特別製作</a>並有詳細心得解說。</p>
+<img src="/pixpro-sp360-4k-180-vr-video/03.jpg">
+<p>本篇所使用的是淘寶購入的版本。</p>
+<h2 id="三軸穩定器"><a href="#三軸穩定器" class="headerlink" title="三軸穩定器"></a>三軸穩定器</h2><p>最後一個非常重要的設備是三軸穩定器，<strong>如果沒有三軸穩定器，你只能架在腳架上立定拍攝。</strong></p>
+<p>因為就算輕微地震動，都會嚴重影響觀看時的舒適度，容易暈眩出戲。</p>
+<p>但如果有三軸穩定器，你手持著像常人一樣走路爬山都沒問題(當然還是能穩盡量穩)。</p>
+<p>而且三軸穩定器能讓你持續保持水平，而拍攝立體VR最重要的就是保持水平，不仰不俯，是觀看的人自己要去抬頭低頭。</p>
+<p>不過就算有三軸穩定器，還是要練習如何「轉彎」，這是會影響舒適度的一個大環節。</p>
+<img src="/pixpro-sp360-4k-180-vr-video/04.jpg">
+<p>這裡使用的是智雲Zhiyun Crane-M，是一支可續航12小時的輕便三軸穩定器，雖然只能承重650g，但配著兩台SP360 4K恰到好處。平常就像上圖的組裝方式，收納在背包裡，出去旅遊時便可以隨時拿出來紀錄一段。</p>
+<h1 id="後製處理"><a href="#後製處理" class="headerlink" title="後製處理"></a>後製處理</h1><p>接下來說明拍攝完的處理步驟。</p>
+<h2 id="攤平素材"><a href="#攤平素材" class="headerlink" title="攤平素材"></a>攤平素材</h2><img src="/pixpro-sp360-4k-180-vr-video/05.jpg">
+<p>拍完後的素材，如圖是2880x2880的魚眼影片，要先將魚眼的原始素材展開成Equirectangular(等距長方投影)。</p>
+<p>展開的方式，嘗試過Autopano、AE的RE:lens、Nuke的CARA VR，結果仍不如官方附屬程式360stitch來得好(CARA VR很接近，但還是有些落差)，可惜360stitch非常陽春，就只能縫合輸出3840x2160影片，沒有細節參數可以調整。</p>
+<p>360stitch本意是將兩台機器拍攝的影片接成360，但我們只是拿來展開，所以便把兩個影片都設為同個影片輸出，結果如下：<br><img src="/pixpro-sp360-4k-180-vr-video/06.jpg"><br>注意將接縫設定為「銳利」。</p>
+<h2 id="疊合左右眼"><a href="#疊合左右眼" class="headerlink" title="疊合左右眼"></a>疊合左右眼</h2><p>將左右眼都展開後，因為要傳到youtube，所以採用Over/Under上下立體拼接：將左眼擺在上層，右眼擺在下層疊起來。</p>
+<p>拼接完後，還必須給上一層mask去遮住不需要看到的地方，譬如後面180度範圍，以及左右眼會看到彼此鏡頭的部分。</p>
+<p>在這邊我是直接按照影片截圖去做了一張透明PNG。<br><img src="/pixpro-sp360-4k-180-vr-video/07.png"></p>
+<p>處理完的結果就是一個4096x4096的360立體影片(但後面180度是遮住的)：<br><img src="/pixpro-sp360-4k-180-vr-video/08.jpg"></p>
+<h2 id="批次處理"><a href="#批次處理" class="headerlink" title="批次處理"></a>批次處理</h2><p>許多網路上的方法都是用Premiere、Finalcut或者AE去做上述步驟的處理，但如果你拍攝很多片段，這是很耗時的事情，更何況只是簡單的兩個步驟：疊加影片-&gt;蓋上遮罩。</p>
+<p>所以這邊我是用Python配上ffmpeg去做批次處理 (如果cmd指令夠強其實也不用進到python)</p>
+<img src="/pixpro-sp360-4k-180-vr-video/09.png">
+<p>像這樣已經用stitch360輸出影片並命好名稱(這步驟避免不了，真心希望柯達可以開放command line)<br>另外要注意的是用stitch360輸出前可以先將左右兩眼影片拖進程式，去讓程式判斷聲音同步的誤差，通常是0~2格。</p>
+<p>接著執行下面script(ffmpeg已經有設定PATH環境變數)<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> glob, subprocess, os</span><br><span class="line"></span><br><span class="line">video_list = glob.glob(<span class="string">"*_l.mp4"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> video_file <span class="keyword">in</span> video_list:</span><br><span class="line">    video_name = video_file.replace(<span class="string">"_l.mp4"</span>, <span class="string">""</span>)</span><br><span class="line">    cmd = <span class="string">'ffmpeg -i &#123;0&#125;_l.mp4 -i &#123;0&#125;_r.mp4 -i mask_360.png -filter_complex "[0:v]pad=iw:ih*2[base]; [base][1:v]overlay=0:H/2:shortest=1[over]; [over][2:0]overlay=0:0[output]" -map [output] -map 0:a:0 -c:v libx264 -crf 17 -y output/&#123;0&#125;.mp4'</span>.format(video_name)</span><br><span class="line">    subprocess.call(cmd, shell=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>整個script用意就是蒐集影片，合併並貼上遮罩輸出。</p>
+<h2 id="快速剪輯"><a href="#快速剪輯" class="headerlink" title="快速剪輯"></a>快速剪輯</h2><p>一般來說到這邊，影片就完成了。</p>
+<p>但如果你想要剪接，用一般編輯軟體，4096x4096的高解析度，又慢又會二次轉碼損傷畫質。<br>於是也手動一點，用ffmpeg做無編碼剪輯，雖然剪接點可能會有點小落差，不過通常這種VR立體展示影片是不會太計較，而且輸出幾秒就可以完成。</p>
+<img src="/pixpro-sp360-4k-180-vr-video/10.png">
+<p>這些是照上一步驟輸出已合併的立體影片，建立一個edit.txt文字檔並把檔名跟剪接的in、out點寫上，讓script去做剪裁跟合併的依據。</p>
+<p>edit.txt內容範例：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">01 20 1:20</span><br><span class="line">02 37 2:40</span><br><span class="line">03 1:03 2:27</span><br><span class="line">03 4:08 5:31</span><br><span class="line">04 1:33 2:19</span><br></pre></td></tr></table></figure></p>
+<p>Script內容：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess, os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">duration</span><span class="params">(st, et)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cnvSecs</span><span class="params">(t)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> t.find(<span class="string">":"</span>) != <span class="number">-1</span>:</span><br><span class="line">            t_s = t.split(<span class="string">":"</span>)</span><br><span class="line">            ct = int(t_s[<span class="number">0</span>])*<span class="number">60</span> + int(t_s[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            ct = int(t)</span><br><span class="line">        <span class="keyword">return</span> ct   </span><br><span class="line">    <span class="keyword">return</span> str(cnvSecs(et) - cnvSecs(st))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmdEdit</span><span class="params">(filename, st, et, outputname)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"ffmpeg -ss &#123;0&#125; -i &#123;1&#125;.mp4 -t &#123;2&#125; -c copy -avoid_negative_ts 1 -y &#123;3&#125;.mp4"</span>.format(st, filename, duration(st, et), outputname)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'edit.txt'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f_list = f.read().splitlines()</span><br><span class="line"></span><br><span class="line">output_list = []</span><br><span class="line"><span class="keyword">for</span> idx, l <span class="keyword">in</span> enumerate(f_list, <span class="number">1</span>):</span><br><span class="line">    cmds = l.split(<span class="string">" "</span>)</span><br><span class="line">    outputname = <span class="string">"edit_&#123;0&#125;"</span>.format(idx)</span><br><span class="line">    output_list.append(outputname)</span><br><span class="line">    subprocess.call(cmdEdit(cmds[<span class="number">0</span>], cmds[<span class="number">1</span>], cmds[<span class="number">2</span>], outputname), shell=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">edit_list = [<span class="string">"file '"</span> + s + <span class="string">".mp4'\n"</span> <span class="keyword">for</span> s <span class="keyword">in</span> output_list]</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'temp.txt'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(<span class="string">""</span>.join(edit_list))</span><br><span class="line">subprocess.call(<span class="string">"ffmpeg -f concat -i temp.txt -c copy edited.mp4"</span>, shell=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">remove_list = [s + <span class="string">".mp4"</span> <span class="keyword">for</span> s <span class="keyword">in</span> output_list]</span><br><span class="line">remove_list.append(<span class="string">"temp.txt"</span>)</span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> remove_list:</span><br><span class="line">    os.remove(file)</span><br></pre></td></tr></table></figure></p>
+<p>其實網路上也有些免編碼帶UI的剪輯程式可以方便使用。</p>
+<p>另外，如果沒有要上傳到youtube需求，其實side by side的方式可以簡潔一點，因為只要4096x2048的尺寸，不需要留後面180度的黑幕，不過其實容量差不多。</p>
+<p>這邊留有之前side by side的bat內容：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input_l.mp4 -i input_r.mp4 -i mask_180.png -filter_complex ^</span><br><span class="line"><span class="string">"[0:v]crop=1920:1920:960:0[crop_left]; ^</span></span><br><span class="line"><span class="string">[1:v]crop=1920:1920:960:0[crop_right]; ^</span></span><br><span class="line"><span class="string">[crop_left]pad=iw*2:ih[base]; ^</span></span><br><span class="line"><span class="string">[base][crop_right]overlay=W/2:0:shortest=1[sth]; ^</span></span><br><span class="line"><span class="string">[sth][2:0]overlay=0:0[output] ^</span></span><br><span class="line"><span class="string">"</span> -map [output] -map <span class="number">0</span>:a:<span class="number">0</span> -c:v libx264 -crf <span class="number">17</span> -y VRsbs.mp4</span><br></pre></td></tr></table></figure></p>
+<h1 id="範例影片"><a href="#範例影片" class="headerlink" title="範例影片"></a>範例影片</h1><p>最後附上最近錄製的幾段影片，youtube這邊要看原始解析度可能會很頓，所以也附上影片原始檔連結，在手機用橙子vr或者在電腦用virtual desktop選擇360 Over-under觀看。</p>
+<div class="video-container"><iframe src="//www.youtube.com/embed/BDvY2QlTh-o" frameborder="0" allowfullscreen></iframe></div>
+<div class="video-container"><iframe src="//www.youtube.com/embed/J8lIMyTFFN8" frameborder="0" allowfullscreen></iframe></div>
+<div class="video-container"><iframe src="//www.youtube.com/embed/fxI6hQTgpL0" frameborder="0" allowfullscreen></iframe></div>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/vr/" rel="tag"># vr</a>
+          
+            <a href="/tags/vive/" rel="tag"># vive</a>
+          
+            <a href="/tags/camera/" rel="tag"># camera</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/cardboard-camera-htc-vive/" rel="next" title="用HTC Vive看Cardboard Camera的照片">
+                <i class="fa fa-chevron-left"></i> 用HTC Vive看Cardboard Camera的照片
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/houdini-diablo-wing-aurora/" rel="prev" title="Houdini快速製作類似Diablo天使的虛化翅膀效果">
+                Houdini快速製作類似Diablo天使的虛化翅膀效果 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+
+    
+
+    
+
+    <div class="sidebar-inner">
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#硬體設備"><span class="nav-number">1.</span> <span class="nav-text">硬體設備</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kodak-SP360-4K"><span class="nav-number">1.1.</span> <span class="nav-text">Kodak SP360 4K</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#立體支架"><span class="nav-number">1.2.</span> <span class="nav-text">立體支架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三軸穩定器"><span class="nav-number">1.3.</span> <span class="nav-text">三軸穩定器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#後製處理"><span class="nav-number">2.</span> <span class="nav-text">後製處理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#攤平素材"><span class="nav-number">2.1.</span> <span class="nav-text">攤平素材</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#疊合左右眼"><span class="nav-number">2.2.</span> <span class="nav-text">疊合左右眼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批次處理"><span class="nav-number">2.3.</span> <span class="nav-text">批次處理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速剪輯"><span class="nav-number">2.4.</span> <span class="nav-text">快速剪輯</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#範例影片"><span class="nav-number">3.</span> <span class="nav-text">範例影片</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+
+    
+
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eli</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="安裝方法 (二選一)：A - 將 Q:\resource\houdini.env 複製到 C:\Users\使用者名稱\Documents\houdini16.5 並覆蓋B - 直接打開 C:\Users\使用者名稱\Documents\houdini16.5\houdini.env並在最後加上兩行 HOUDINI_OTLSCAN_PATH=&amp;quot;Q:/resource/houdini;@">
+<meta name="keywords" content="houdini,tutorial,otl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="夢想動畫Houdini工具套件說明">
+<meta property="og:url" content="https://mur.elii.io/ms-houdini-workpack/index.html">
+<meta property="og:site_name" content="eli&#39;s murmur">
+<meta property="og:description" content="安裝方法 (二選一)：A - 將 Q:\resource\houdini.env 複製到 C:\Users\使用者名稱\Documents\houdini16.5 並覆蓋B - 直接打開 C:\Users\使用者名稱\Documents\houdini16.5\houdini.env並在最後加上兩行 HOUDINI_OTLSCAN_PATH=&amp;quot;Q:/resource/houdini;@">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://i.imgur.com/QeFB6w2.png">
+<meta property="og:image" content="https://i.imgur.com/bPYWp88.png">
+<meta property="og:image" content="https://i.imgur.com/SOcuWyr.png">
+<meta property="og:image" content="https://i.imgur.com/D0bpmDm.png">
+<meta property="og:image" content="https://i.imgur.com/LKy0yIj.png">
+<meta property="og:image" content="https://i.imgur.com/UWxpuVR.png">
+<meta property="og:image" content="https://i.imgur.com/pcoYPqV.png">
+<meta property="og:image" content="https://i.imgur.com/k53tp2p.png">
+<meta property="og:image" content="https://i.imgur.com/YmBl0nD.png">
+<meta property="og:image" content="https://i.imgur.com/6kRO708.png">
+<meta property="og:image" content="https://i.imgur.com/pVQGHyw.png">
+<meta property="og:image" content="https://i.imgur.com/ouBG1Nq.png">
+<meta property="og:image" content="https://i.imgur.com/vV7dghn.png">
+<meta property="og:image" content="https://i.imgur.com/4LUcIHr.png">
+<meta property="og:image" content="https://i.imgur.com/GbUElEQ.png">
+<meta property="og:image" content="https://i.imgur.com/SEAs3ba.png">
+<meta property="og:image" content="https://i.imgur.com/hZ5Rppz.png">
+<meta property="og:image" content="https://i.imgur.com/6INO0OT.png">
+<meta property="og:image" content="https://i.imgur.com/km73Qjv.png">
+<meta property="og:image" content="https://i.imgur.com/EPP7jO2.png">
+<meta property="og:image" content="https://i.imgur.com/ce53PJt.png">
+<meta property="og:image" content="https://i.imgur.com/2LZ3L2N.png">
+<meta property="og:image" content="https://i.imgur.com/BYQB1yA.png">
+<meta property="og:image" content="https://i.imgur.com/EyMS93W.png">
+<meta property="og:image" content="https://i.imgur.com/xemiPmz.png">
+<meta property="og:image" content="https://i.imgur.com/2M7y0Pl.png">
+<meta property="og:image" content="https://i.imgur.com/AGTI4nL.png">
+<meta property="og:image" content="https://i.imgur.com/Aw0FmEB.png">
+<meta property="og:image" content="https://i.imgur.com/A0rWEMZ.png">
+<meta property="og:image" content="https://i.imgur.com/YhQBBoh.png">
+<meta property="og:image" content="https://i.imgur.com/VQyZ1ua.png">
+<meta property="og:image" content="https://i.imgur.com/O9Zl60m.png">
+<meta property="og:image" content="https://i.imgur.com/uMcLtxC.png">
+<meta property="og:updated_time" content="2018-06-06T07:37:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="夢想動畫Houdini工具套件說明">
+<meta name="twitter:description" content="安裝方法 (二選一)：A - 將 Q:\resource\houdini.env 複製到 C:\Users\使用者名稱\Documents\houdini16.5 並覆蓋B - 直接打開 C:\Users\使用者名稱\Documents\houdini16.5\houdini.env並在最後加上兩行 HOUDINI_OTLSCAN_PATH=&amp;quot;Q:/resource/houdini;@">
+<meta name="twitter:image" content="https://i.imgur.com/QeFB6w2.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="eli's murmur" type="application/atom+xml" />
+
+
+
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>夢想動畫Houdini工具套件說明 | eli's murmur</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+  <link rel="stylesheet" type="text/css" href="/css/patch.css">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">eli's murmur</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />tags<span class="badge">33</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />posts<span class="badge">30</span></a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+
+  
+      <div class="links-of-author menu-item" style="opacity: 1;">
+        
+          <span class="links-of-author-item">
+            <a href="https://github.com/elishahung" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="mailto:mrhchief@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://vimeo.com/elishahung" target="_blank" title="Vimeo"><i class="fa fa-fw fa-vimeo"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://instagram.com/elishahung" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://www.flickr.com/photos/mrhchief" target="_blank" title="Flickr"><i class="fa fa-fw fa-flickr"></i></a>
+            
+          </span>
+        
+      </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mur.elii.io/ms-houdini-workpack/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="eli's murmur">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">夢想動畫Houdini工具套件說明
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-04-24 15:06:39" itemprop="dateCreated datePublished" datetime="2018-04-24T15:06:39+08:00">2018-04-24</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>安裝方法 (二選一)：<br>A - 將 <code>Q:\resource\houdini.env</code> 複製到 <code>C:\Users\使用者名稱\Documents\houdini16.5</code> 並覆蓋<br>B - 直接打開 <code>C:\Users\使用者名稱\Documents\houdini16.5\houdini.env</code><br>並在最後加上兩行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HOUDINI_OTLSCAN_PATH=&quot;Q:/resource/houdini;@/otls&quot;</span><br><span class="line">HOUDINI_MENU_PATH=&quot;Q:/resource/houdini;@/&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用方式：<br>指令在選單列<code>MoonShine</code>底下，節點在右鍵(Tab)的<code>Elisha&#39;s Tools</code>底下</p>
+</li>
+</ul>
+<a id="more"></a>
+<h1 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h1><p><img src="https://i.imgur.com/QeFB6w2.png" alt=""></p>
+<ul>
+<li><p>Link Bound<br>將模擬的外框<code>size</code>跟<code>pivot</code>連結到指定的物件</p>
+</li>
+<li><p>Link Parm<br>連結節點大小或中心給參數</p>
+</li>
+<li><p>Add Vex Function<br>對<code>Attribute Wrangle</code>頂部增加常用公式<br>– 兩向量夾角 : 兩個向量的角度<br>– 動畫控制 : 基礎的程序動態控制公式</p>
+</li>
+<li><p>Create Rop From Cache<br>將cache包成rop給deadline放模擬</p>
+</li>
+<li><p>Add Seperate EXR From Rop<br>在rop下增加EXR拆層</p>
+</li>
+<li><p>Export Transform Info<br>匯出位置資訊的文字檔案</p>
+</li>
+<li><p>Export Material Info<br>匯出材質資訊的文字檔案</p>
+</li>
+<li><p>Help<br>開啟套件說明網頁</p>
+</li>
+</ul>
+<h1 id="節點"><a href="#節點" class="headerlink" title="節點"></a>節點</h1><h2 id="Animated-Bound-動態外框"><a href="#Animated-Bound-動態外框" class="headerlink" title="Animated Bound / 動態外框"></a>Animated Bound / 動態外框</h2><p><img src="https://i.imgur.com/bPYWp88.png" alt=""></p>
+<blockquote>
+<p><strong>動態範圍的bounding box</strong></p>
+</blockquote>
+<p>指定時間範圍取出最大的bounding範圍</p>
+<ul>
+<li>Frame : 時間範圍</li>
+<li>Calculate : 按下開始計算</li>
+<li>Lower Padding : 同bound參數</li>
+<li>Upper Padding : 同bound參數</li>
+</ul>
+<h2 id="Attribute-to-Material-依屬性創建材質"><a href="#Attribute-to-Material-依屬性創建材質" class="headerlink" title="Attribute to Material / 依屬性創建材質"></a>Attribute to Material / 依屬性創建材質</h2><p><img src="https://i.imgur.com/SOcuWyr.png" alt=""></p>
+<blockquote>
+<p><strong>根據屬性創建相對應材質</strong></p>
+</blockquote>
+<p>主要是給FBX輸出用，常搭配<a href="#group-to-attribute--%E7%BE%A4%E7%B5%84%E8%BD%89%E6%8F%9B%E6%88%90%E5%B1%AC%E6%80%A7">Group to Attribute</a>做使用</p>
+<ul>
+<li>Attribute Name : 對應的屬性，右邊箭頭下拉有目前屬性方便選取</li>
+<li>Delete Attribute : 對應後刪除屬性</li>
+<li>Refresh : 強制更新材質</li>
+</ul>
+<h2 id="Batch-Schedule-佇列排程執行"><a href="#Batch-Schedule-佇列排程執行" class="headerlink" title="Batch Schedule / 佇列排程執行"></a>Batch Schedule / 佇列排程執行</h2><p><img src="https://i.imgur.com/D0bpmDm.png" alt=""></p>
+<blockquote>
+<p><strong>將模擬或算圖排程執行並在完成時獲得通知與經過時間</strong></p>
+</blockquote>
+<ul>
+<li>Node : 將要排程的節點拖曳到此欄位</li>
+<li>Add to List : 按此按鈕加入排程佇列</li>
+<li>Relative : 用相對路徑的方式加入節點，以維持架構</li>
+<li>Batch List : 排程佇列，前面勾勾可以略過排程，也可在此手動添加/更改節點</li>
+<li>Email : 可以勾選在排程完成後寄信通知，如果寄信成功，此欄位的電子信箱會自動儲存在電腦裡</li>
+</ul>
+<h2 id="Camera-Cone-攝影機視角範圍生成"><a href="#Camera-Cone-攝影機視角範圍生成" class="headerlink" title="Camera Cone / 攝影機視角範圍生成"></a>Camera Cone / 攝影機視角範圍生成</h2><p><img src="https://i.imgur.com/LKy0yIj.png" alt=""></p>
+<blockquote>
+<p><strong>依照攝影機視角產生六面體模型</strong></p>
+</blockquote>
+<ul>
+<li>Camera : 選擇攝影機</li>
+<li>Near : 攝影機起始的Z值</li>
+<li>Far : 攝影機終點的Z值</li>
+<li>X Offset : 攝影機寬度的微調</li>
+<li>Y Offset : 攝影機高度的微調</li>
+</ul>
+<h2 id="Compute-Velocity-速度計算"><a href="#Compute-Velocity-速度計算" class="headerlink" title="Compute Velocity / 速度計算"></a>Compute Velocity / 速度計算</h2><p><img src="https://i.imgur.com/UWxpuVR.png" alt=""></p>
+<blockquote>
+<p><strong>取代trail的快速運算</strong></p>
+</blockquote>
+<ul>
+<li>Match Attribute : 屬性配對，通常是id或name</li>
+</ul>
+<h2 id="Crop-by-Camera-攝影機裁切"><a href="#Crop-by-Camera-攝影機裁切" class="headerlink" title="Crop by Camera / 攝影機裁切"></a>Crop by Camera / 攝影機裁切</h2><p><img src="https://i.imgur.com/pcoYPqV.png" alt=""></p>
+<blockquote>
+<p><strong>依照攝影機視野去做裁切</strong></p>
+</blockquote>
+<ul>
+<li>Camera : 指定要裁切的攝影機</li>
+<li>Frame Offset : X與Y軸框架的微調</li>
+<li>Crop Z / Z Offset : Z軸的裁切</li>
+</ul>
+<h2 id="Duplicate-Wires-線條複製"><a href="#Duplicate-Wires-線條複製" class="headerlink" title="Duplicate Wires / 線條複製"></a>Duplicate Wires / 線條複製</h2><p><img src="https://i.imgur.com/k53tp2p.png" alt=""></p>
+<blockquote>
+<p><strong>將線條以自身為中心，複製多份</strong></p>
+</blockquote>
+<ul>
+<li>Radius : 複製線條的半徑</li>
+<li>Amount : 線條數量</li>
+</ul>
+<h2 id="Edge-Group-to-Curve-邊線群組轉換線條"><a href="#Edge-Group-to-Curve-邊線群組轉換線條" class="headerlink" title="Edge Group to Curve / 邊線群組轉換線條"></a>Edge Group to Curve / 邊線群組轉換線條</h2><p><img src="https://i.imgur.com/YmBl0nD.png" alt=""></p>
+<blockquote>
+<p><strong>將物件的Edge群組取出成線條</strong></p>
+</blockquote>
+<ul>
+<li>Group : Edge群組選擇，右邊箭頭可下拉快速選取</li>
+<li>Fuse Vertices : 連結所有線條</li>
+</ul>
+<h2 id="Export-Pack-to-FBX-Pack物件輸出FBX"><a href="#Export-Pack-to-FBX-Pack物件輸出FBX" class="headerlink" title="Export Pack to FBX / Pack物件輸出FBX"></a>Export Pack to FBX / Pack物件輸出FBX</h2><p><img src="https://i.imgur.com/6kRO708.png" alt=""></p>
+<blockquote>
+<p><strong>將Pack物件動態分成個體輸出FBX</strong></p>
+</blockquote>
+<p>主要是用在碎裂特效輸出到3ds Max或遊戲軟體，在面數與物件不多的情況之下，對空間與效能節省許多，可調性也比較高。</p>
+<ul>
+<li>Output File : 輸出FBX的路徑</li>
+<li>Start/End : 開始與結束影格</li>
+<li>Scene Scale : 場景大小</li>
+</ul>
+<h2 id="Export-Point-Cache-輸出Point-Cache"><a href="#Export-Point-Cache-輸出Point-Cache" class="headerlink" title="Export Point Cache / 輸出Point Cache"></a>Export Point Cache / 輸出Point Cache</h2><p><img src="https://i.imgur.com/pVQGHyw.png" alt=""></p>
+<blockquote>
+<p><strong>輸出給MAX和MAYA讀取的FBX與PC2檔，注意要三角面</strong></p>
+</blockquote>
+<ul>
+<li>Export : 輸出FBX和PC2</li>
+<li>Export Cache Only : 只輸出PC2</li>
+<li>Start/End : 輸出影格範圍</li>
+<li>Export Path : 輸出路徑</li>
+<li>File Name : 檔案名稱</li>
+</ul>
+<h2 id="Export-to-AE-將物件跟攝影機輸出到AE"><a href="#Export-to-AE-將物件跟攝影機輸出到AE" class="headerlink" title="Export to AE / 將物件跟攝影機輸出到AE"></a>Export to AE / 將物件跟攝影機輸出到AE</h2><p><img src="https://i.imgur.com/ouBG1Nq.png" alt=""></p>
+<blockquote>
+<p><strong>產生可讓AE讀取物件位置跟攝影機動態的檔案</strong></p>
+</blockquote>
+<p>物件部分目前只可讀最外層的obj，之後會想改良成point位置會比較方便</p>
+<h2 id="Extract-Matrix-分析位移資訊"><a href="#Extract-Matrix-分析位移資訊" class="headerlink" title="Extract Matrix / 分析位移資訊"></a>Extract Matrix / 分析位移資訊</h2><p><img src="https://i.imgur.com/vV7dghn.png" alt=""></p>
+<blockquote>
+<p><strong>將只有頂點動態的物件分析出Matrix資訊</strong></p>
+</blockquote>
+<ul>
+<li>Cache Trasnsform Data : 將分析資訊儲存cache</li>
+<li>Geometry File : cache儲存位置</li>
+<li>Group Similar Transform : 將類似的位移物件群組起來</li>
+<li>Visualize Groups : 顯示不同群組</li>
+<li>Grp Threshold : 群組位移資訊的相似度</li>
+<li>Frame : 群組判斷的格數</li>
+</ul>
+<h2 id="Fit-Zero-One-Attribute-映射屬性到01"><a href="#Fit-Zero-One-Attribute-映射屬性到01" class="headerlink" title="Fit Zero One Attribute / 映射屬性到01"></a>Fit Zero One Attribute / 映射屬性到01</h2><p><img src="https://i.imgur.com/4LUcIHr.png" alt=""></p>
+<blockquote>
+<p><strong>將屬性延展或壓縮，對應到0~1之間</strong></p>
+</blockquote>
+<ul>
+<li>Attribute Type : 屬性類別</li>
+<li>Fit Attribute : 屬性名稱</li>
+<li>Create New Name : 重新命名新映射的屬性名稱(不沿用原名稱)</li>
+<li>New Attribute Name : 新屬性名稱</li>
+</ul>
+<h2 id="Grid-Points-產生格點"><a href="#Grid-Points-產生格點" class="headerlink" title="Grid Points / 產生格點"></a>Grid Points / 產生格點</h2><p><img src="https://i.imgur.com/GbUElEQ.png" alt=""></p>
+<blockquote>
+<p><strong>對物體產生等距格點</strong></p>
+</blockquote>
+<ul>
+<li>Length : 點與點之間的距離</li>
+<li>Expand : 範圍的延伸或縮減</li>
+</ul>
+<h2 id="Group-to-Attribute-群組轉換成屬性"><a href="#Group-to-Attribute-群組轉換成屬性" class="headerlink" title="Group to Attribute / 群組轉換成屬性"></a>Group to Attribute / 群組轉換成屬性</h2><p><img src="https://i.imgur.com/SEAs3ba.png" alt=""></p>
+<blockquote>
+<p><strong>將群組變成字串屬性，群組名稱為屬性值</strong></p>
+</blockquote>
+<ul>
+<li>Attribute Name : 轉換成的屬性名稱，右邊下拉箭頭有預設項目</li>
+<li>Delete Groups : 轉換後刪除群組</li>
+</ul>
+<h2 id="Keep-Biggest-Part-保留最大區塊"><a href="#Keep-Biggest-Part-保留最大區塊" class="headerlink" title="Keep Biggest Part / 保留最大區塊"></a>Keep Biggest Part / 保留最大區塊</h2><p><img src="https://i.imgur.com/hZ5Rppz.png" alt=""></p>
+<blockquote>
+<p><strong>利用connectivity區分部件，並只保留最大體積區塊</strong></p>
+</blockquote>
+<h2 id="Material-from-3dsMax-繼承3dsMax材質"><a href="#Material-from-3dsMax-繼承3dsMax材質" class="headerlink" title="Material from 3dsMax / 繼承3dsMax材質"></a>Material from 3dsMax / 繼承3dsMax材質</h2><p><img src="https://i.imgur.com/6INO0OT.png" alt=""></p>
+<blockquote>
+<p><strong>取得max場景物件的材質資訊，並重新上回在houdini的alembic，以及最後到max的VrayProxy材質重新對應回去</strong></p>
+<ul>
+<li>Get Max Script : 開啟含有maxscript的資料夾，裏頭有兩個script</li>
+</ul>
+</blockquote>
+<pre><code><pre><code class="hljs undefined">-- `A_getMaterial` : 在3dsMax裡選取要取得材質資訊的物件並執行，會將資訊複製到剪貼簿，然後再貼到Material Data的欄位上
+-- `B_applyMaterial` : 在3dsMax匯入VrayProxy後，選取並執行，將材質對應回去</code></pre>
+</code></pre><ul>
+<li>Material Data : 將<code>A_getMaterial</code>執行產生的資訊貼在此處</li>
+<li>Attribute Name : 材質資料的屬性名稱</li>
+</ul>
+<h2 id="Merge-to-Class-合併並分類"><a href="#Merge-to-Class-合併並分類" class="headerlink" title="Merge to Class / 合併並分類"></a>Merge to Class / 合併並分類</h2><p><img src="https://i.imgur.com/km73Qjv.png" alt=""></p>
+<blockquote>
+<p><strong>將輸入的節點merge並依輸入順序設定class屬性</strong></p>
+</blockquote>
+<h2 id="Packed-Disk-Edit-Packed-Disk編輯"><a href="#Packed-Disk-Edit-Packed-Disk編輯" class="headerlink" title="Packed Disk Edit / Packed Disk編輯"></a>Packed Disk Edit / Packed Disk編輯</h2><p><img src="https://i.imgur.com/EPP7jO2.png" alt=""></p>
+<blockquote>
+<p><strong>改變Packed Disk路徑或格數，修正原有節點瑕疵</strong></p>
+<ul>
+<li>Rename Path : 重新命名路徑<br>– Group : 群組過濾<br>– Source Pattern : 原有名稱要取代的部分<br>– Destination Pattern : 取代後的新名稱</li>
+<li>Frame index : 更改影格<br>– Sequence Index : 影格數字<br>– By Attribute : 用primitive的屬性來更改影格數字</li>
+<li>Wrap Type : 影格範圍到盡頭的行為<br>– clamp : 停留在最後一格<br>– cycle : 重複播放<br>– strict : 空白物件</li>
+</ul>
+</blockquote>
+<h2 id="Patch-Particles-粒子填充"><a href="#Patch-Particles-粒子填充" class="headerlink" title="Patch Particles / 粒子填充"></a>Patch Particles / 粒子填充</h2><p><img src="https://i.imgur.com/ce53PJt.png" alt=""></p>
+<blockquote>
+<p><strong>將每格粒子數量補足成最後的數量，主要用在破碎碎粒可以做成頂點動畫</strong></p>
+</blockquote>
+<ul>
+<li>Input0 : 粒子動畫</li>
+<li>Input1 : 最後一格的粒子</li>
+</ul>
+<h2 id="Quick-Bound-Clip-快速方塊切割"><a href="#Quick-Bound-Clip-快速方塊切割" class="headerlink" title="Quick Bound Clip / 快速方塊切割"></a>Quick Bound Clip / 快速方塊切割</h2><p><img src="https://i.imgur.com/2LZ3L2N.png" alt=""></p>
+<blockquote>
+<p><strong>給予一個方塊(可旋轉)，將模型快速裁切在BOX裡面</strong></p>
+</blockquote>
+<h2 id="Rotate-Prims-剝皮"><a href="#Rotate-Prims-剝皮" class="headerlink" title="Rotate Prims / 剝皮"></a>Rotate Prims / 剝皮</h2><p><img src="https://i.imgur.com/BYQB1yA.png" alt=""></p>
+<blockquote>
+<p><strong>將Primitive針對參考點去捲動，類似剝皮的效果</strong></p>
+</blockquote>
+<ul>
+<li>Time : 動畫時間點</li>
+<li>Range : 每個轉換過程佔據整體時間的比例</li>
+<li>Flip Direction : 相反旋轉方向</li>
+<li>Amount : 旋轉的強度</li>
+<li>(Rotation) Progress Curve : 旋轉動畫的過程曲線</li>
+<li>(Shrink) Progress Curve : 縮小動畫的過程曲線</li>
+<li>Remove Empty Primitives : 移除縮到看不見的面</li>
+<li>Remove Computed Attributes : 移除中途計算的屬性</li>
+</ul>
+<h2 id="Seperate-物件分類"><a href="#Seperate-物件分類" class="headerlink" title="Seperate / 物件分類"></a>Seperate / 物件分類</h2><p><img src="https://i.imgur.com/EyMS93W.png" alt=""></p>
+<blockquote>
+<p><strong>用選取方式將物件拆解分成不同部位</strong></p>
+</blockquote>
+<ul>
+<li>Create Node to Parts : 根據群組產生各自節點</li>
+<li>Visualize : 用顏色標示每個群組</li>
+<li>Hide Other Parts When Select : 選取群組時，將現有群組隱藏，以避免誤選</li>
+<li>Attribute : 分類的屬性名稱</li>
+<li>Group Name : 該部位的群組名稱，空白的話不會建立群組</li>
+<li>Primitives : 選取的面編號，按右邊箭頭來選取</li>
+<li>Solo : 單獨顯示部位</li>
+</ul>
+<h2 id="Seperate-EXR-channels-EXR拆通道-COP"><a href="#Seperate-EXR-channels-EXR拆通道-COP" class="headerlink" title="Seperate EXR channels / EXR拆通道 (COP)"></a>Seperate EXR channels / EXR拆通道 (COP)</h2><p><img src="https://i.imgur.com/xemiPmz.png" alt=""></p>
+<blockquote>
+<p><strong>將多通道的EXR照公司算圖方式拆開到各別資料夾</strong></p>
+</blockquote>
+<ul>
+<li>File : 要拆的EXR序列</li>
+<li>Reload : 重新讀取一次</li>
+<li>Start / End : 開始與結束的影格</li>
+<li>Output Elements : 預覽會拆開的元件跟檔名</li>
+<li>Render (Controls) : 算圖跟細項(依影格順序算或元件順序算)</li>
+</ul>
+<h2 id="Tension-張力分析"><a href="#Tension-張力分析" class="headerlink" title="Tension / 張力分析"></a>Tension / 張力分析</h2><p><img src="https://i.imgur.com/2M7y0Pl.png" alt="image alt"></p>
+<blockquote>
+<p><strong>網路的套件，藉由參照物件找出扭曲改變的部分</strong></p>
+</blockquote>
+<h2 id="Transform-by-Alembic-跟隨Alembic位移"><a href="#Transform-by-Alembic-跟隨Alembic位移" class="headerlink" title="Transform by Alembic / 跟隨Alembic位移"></a>Transform by Alembic / 跟隨Alembic位移</h2><p><img src="https://i.imgur.com/AGTI4nL.png" alt="image alt"></p>
+<blockquote>
+<p><strong>找出Alembic的位移資訊並套用</strong></p>
+</blockquote>
+<h2 id="Transform-by-Axis-根據軸向位移"><a href="#Transform-by-Axis-根據軸向位移" class="headerlink" title="Transform by Axis / 根據軸向位移"></a>Transform by Axis / 根據軸向位移</h2><p><img src="https://i.imgur.com/Aw0FmEB.png" alt=""></p>
+<blockquote>
+<p><strong>找出最相符的軸向並依此型變</strong></p>
+</blockquote>
+<ul>
+<li>Axis order : 依照三軸長度由升序排列</li>
+<li>Translate : 位移</li>
+<li>Rotate : 旋轉</li>
+<li>Scale : 縮放</li>
+</ul>
+<h2 id="Transform-by-Matrix-相對Matrix位移"><a href="#Transform-by-Matrix-相對Matrix位移" class="headerlink" title="Transform by Matrix / 相對Matrix位移"></a>Transform by Matrix / 相對Matrix位移</h2><p><img src="https://i.imgur.com/A0rWEMZ.png" alt="image alt"></p>
+<blockquote>
+<p><strong>前一個節點的進階版，抓出input1跟input2的matrix相對位移資訊來移動</strong></p>
+</blockquote>
+<ul>
+<li>Input0 : 要位移的物件</li>
+<li>Input1 : 參考物件</li>
+<li>Input2 : 動態物件</li>
+</ul>
+<h2 id="VDB-Merge-合併VDB"><a href="#VDB-Merge-合併VDB" class="headerlink" title="VDB Merge / 合併VDB"></a>VDB Merge / 合併VDB</h2><p><img src="https://i.imgur.com/YhQBBoh.png" alt=""></p>
+<blockquote>
+<p><strong>合併同一節點的所有VDB</strong></p>
+</blockquote>
+<h2 id="Volume-Vector-Visualize-顯示體積資訊"><a href="#Volume-Vector-Visualize-顯示體積資訊" class="headerlink" title="Volume Vector Visualize / 顯示體積資訊"></a>Volume Vector Visualize / 顯示體積資訊</h2><p><img src="https://i.imgur.com/VQyZ1ua.png" alt="image alt"></p>
+<blockquote>
+<p><strong>視覺化體積資訊，主要用在Vel</strong></p>
+</blockquote>
+<ul>
+<li>Attribute : 要顯示的體積屬性</li>
+<li>Plane : 資訊的切面方向</li>
+<li>Offset : 切面的位移</li>
+<li>Trail Length : 顯示的拖尾長度</li>
+</ul>
+<h2 id="VR-Flipbook-VR預覽"><a href="#VR-Flipbook-VR預覽" class="headerlink" title="VR Flipbook / VR預覽"></a>VR Flipbook / VR預覽</h2><p><img src="https://i.imgur.com/O9Zl60m.png" alt=""></p>
+<blockquote>
+<p><strong>產生360預覽</strong></p>
+</blockquote>
+<ul>
+<li>Start/End : 擷取範圍</li>
+<li>Output Path : 輸出路徑</li>
+<li>Filename : 檔案名稱</li>
+<li>Camera : 要產生的相機</li>
+<li>Resolution : 解析度</li>
+<li>Export Video : 將預覽轉檔成影片，並選擇是否保存原始圖檔序列</li>
+<li>CubeToSphere Path : 應用程式的路徑</li>
+<li>FFMpeg Path : 應用程式的路徑</li>
+</ul>
+<h1 id="流程工具"><a href="#流程工具" class="headerlink" title="流程工具"></a>流程工具</h1><h2 id="Moonshine-Cache-Export-Cache交接輸出"><a href="#Moonshine-Cache-Export-Cache交接輸出" class="headerlink" title="Moonshine Cache Export / Cache交接輸出"></a>Moonshine Cache Export / Cache交接輸出</h2><p><img src="https://i.imgur.com/uMcLtxC.png" alt=""></p>
+<blockquote>
+<p><strong>對MAYA流程的Cache輸出，交接備註與管理</strong></p>
+</blockquote>
+<ul>
+<li>Cache資料夾路徑 : 當設定好專案資訊後會顯示路徑，可複製</li>
+<li>硬碟代號 : 選擇要存在Q槽或者D槽</li>
+<li>Export按鈕 : 輸出Cache，如果是第一次建立該Cache也會新增必須的資料夾</li>
+<li>資料夾按鈕 : 打開保存Cache的資料夾</li>
+<li>複製按鈕 : 從另一個硬碟代號將Cache複製過來，譬如現在在Q槽的某cache_v2，就會從D槽的某cache_v2把檔案複製過來，方便在本機模擬完後再轉移到網路伺服器</li>
+<li>User : 輸出Cache的使用者名稱</li>
+<li>Project : 專案名稱</li>
+<li>Cut : 卡號</li>
+<li>Name : Cache名稱<br>– Name右邊按鈕 : 如果有設定好專案跟卡號，可以直接按此按鈕讀取該卡號的Cache資訊</li>
+<li>Version : 版本號<br>– Add Comment : 增加該版本號備註</li>
+<li>交接留言板<br>– 重新整理按鈕 : 重新整理Cache交接留言板<br>– 中間文字 : 最新一則交接留言版的留言<br>– 氣泡框按鈕 : 觀看所有留言跟新增留言</li>
+<li>Valid Frame Range : 影格輸出方式</li>
+<li>Start/End/Inc : 影格輸出範圍</li>
+<li>Scene Scale : 場景大小</li>
+<li>Seprate : 分別設定場景大小的三軸</li>
+<li>Type : 選擇要輸出Alembic還是VDB</li>
+<li>Alembic :<br>– Render Full Range : 勾選時輸出為一個alembic，取消勾選則輸出多個alembic<br>– Build Hierarchy From Attribute : 由自訂屬性創立階層關係<br>– Path Attribute : 自訂階層屬性</li>
+<li>VDB :<br>– Write 16-Bit Floats : 寫入16位元浮點數格式，壓縮節省Cache空間</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/houdini/" rel="tag"># houdini</a>
+          
+            <a href="/tags/tutorial/" rel="tag"># tutorial</a>
+          
+            <a href="/tags/otl/" rel="tag"># otl</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/deadline-houdini-intergration/" rel="next" title="Deadline跟Houdini連動筆記">
+                <i class="fa fa-chevron-left"></i> Deadline跟Houdini連動筆記
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+
+    
+
+    
+
+    <div class="sidebar-inner">
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#指令"><span class="nav-number">1.</span> <span class="nav-text">指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#節點"><span class="nav-number">2.</span> <span class="nav-text">節點</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Animated-Bound-動態外框"><span class="nav-number">2.1.</span> <span class="nav-text">Animated Bound / 動態外框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attribute-to-Material-依屬性創建材質"><span class="nav-number">2.2.</span> <span class="nav-text">Attribute to Material / 依屬性創建材質</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-Schedule-佇列排程執行"><span class="nav-number">2.3.</span> <span class="nav-text">Batch Schedule / 佇列排程執行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Camera-Cone-攝影機視角範圍生成"><span class="nav-number">2.4.</span> <span class="nav-text">Camera Cone / 攝影機視角範圍生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compute-Velocity-速度計算"><span class="nav-number">2.5.</span> <span class="nav-text">Compute Velocity / 速度計算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Crop-by-Camera-攝影機裁切"><span class="nav-number">2.6.</span> <span class="nav-text">Crop by Camera / 攝影機裁切</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Duplicate-Wires-線條複製"><span class="nav-number">2.7.</span> <span class="nav-text">Duplicate Wires / 線條複製</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Edge-Group-to-Curve-邊線群組轉換線條"><span class="nav-number">2.8.</span> <span class="nav-text">Edge Group to Curve / 邊線群組轉換線條</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Export-Pack-to-FBX-Pack物件輸出FBX"><span class="nav-number">2.9.</span> <span class="nav-text">Export Pack to FBX / Pack物件輸出FBX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Export-Point-Cache-輸出Point-Cache"><span class="nav-number">2.10.</span> <span class="nav-text">Export Point Cache / 輸出Point Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Export-to-AE-將物件跟攝影機輸出到AE"><span class="nav-number">2.11.</span> <span class="nav-text">Export to AE / 將物件跟攝影機輸出到AE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extract-Matrix-分析位移資訊"><span class="nav-number">2.12.</span> <span class="nav-text">Extract Matrix / 分析位移資訊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fit-Zero-One-Attribute-映射屬性到01"><span class="nav-number">2.13.</span> <span class="nav-text">Fit Zero One Attribute / 映射屬性到01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grid-Points-產生格點"><span class="nav-number">2.14.</span> <span class="nav-text">Grid Points / 產生格點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Group-to-Attribute-群組轉換成屬性"><span class="nav-number">2.15.</span> <span class="nav-text">Group to Attribute / 群組轉換成屬性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keep-Biggest-Part-保留最大區塊"><span class="nav-number">2.16.</span> <span class="nav-text">Keep Biggest Part / 保留最大區塊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Material-from-3dsMax-繼承3dsMax材質"><span class="nav-number">2.17.</span> <span class="nav-text">Material from 3dsMax / 繼承3dsMax材質</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Merge-to-Class-合併並分類"><span class="nav-number">2.18.</span> <span class="nav-text">Merge to Class / 合併並分類</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Packed-Disk-Edit-Packed-Disk編輯"><span class="nav-number">2.19.</span> <span class="nav-text">Packed Disk Edit / Packed Disk編輯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Patch-Particles-粒子填充"><span class="nav-number">2.20.</span> <span class="nav-text">Patch Particles / 粒子填充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Bound-Clip-快速方塊切割"><span class="nav-number">2.21.</span> <span class="nav-text">Quick Bound Clip / 快速方塊切割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rotate-Prims-剝皮"><span class="nav-number">2.22.</span> <span class="nav-text">Rotate Prims / 剝皮</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Seperate-物件分類"><span class="nav-number">2.23.</span> <span class="nav-text">Seperate / 物件分類</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Seperate-EXR-channels-EXR拆通道-COP"><span class="nav-number">2.24.</span> <span class="nav-text">Seperate EXR channels / EXR拆通道 (COP)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tension-張力分析"><span class="nav-number">2.25.</span> <span class="nav-text">Tension / 張力分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transform-by-Alembic-跟隨Alembic位移"><span class="nav-number">2.26.</span> <span class="nav-text">Transform by Alembic / 跟隨Alembic位移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transform-by-Axis-根據軸向位移"><span class="nav-number">2.27.</span> <span class="nav-text">Transform by Axis / 根據軸向位移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transform-by-Matrix-相對Matrix位移"><span class="nav-number">2.28.</span> <span class="nav-text">Transform by Matrix / 相對Matrix位移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VDB-Merge-合併VDB"><span class="nav-number">2.29.</span> <span class="nav-text">VDB Merge / 合併VDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Volume-Vector-Visualize-顯示體積資訊"><span class="nav-number">2.30.</span> <span class="nav-text">Volume Vector Visualize / 顯示體積資訊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VR-Flipbook-VR預覽"><span class="nav-number">2.31.</span> <span class="nav-text">VR Flipbook / VR預覽</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程工具"><span class="nav-number">3.</span> <span class="nav-text">流程工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Moonshine-Cache-Export-Cache交接輸出"><span class="nav-number">3.1.</span> <span class="nav-text">Moonshine Cache Export / Cache交接輸出</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+
+    
+
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eli</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

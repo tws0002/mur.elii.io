@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Google 在 Android/iOS 雙平台推出的 Cardboard Camera，算是目前看過效果最好的360立體照片軟體之一，而且拍攝極其方便簡單，就可以產生出約10000像素寬的高解析立體照片。問題是，這照片只能在手機自己的APP看，從手機的相簿或者傳到電腦上，會發現只有一張照片。 這問題在 Vector Cult VR 的文章 有很詳盡的解釋。">
+<meta name="keywords" content="python,vr,vive,camera">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用HTC Vive看Cardboard Camera的照片">
+<meta property="og:url" content="https://mur.elii.io/cardboard-camera-htc-vive/index.html">
+<meta property="og:site_name" content="eli&#39;s murmur">
+<meta property="og:description" content="Google 在 Android/iOS 雙平台推出的 Cardboard Camera，算是目前看過效果最好的360立體照片軟體之一，而且拍攝極其方便簡單，就可以產生出約10000像素寬的高解析立體照片。問題是，這照片只能在手機自己的APP看，從手機的相簿或者傳到電腦上，會發現只有一張照片。 這問題在 Vector Cult VR 的文章 有很詳盡的解釋。">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://mur.elii.io/cardboard-camera-htc-vive/01.jpg">
+<meta property="og:updated_time" content="2018-04-21T18:02:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用HTC Vive看Cardboard Camera的照片">
+<meta name="twitter:description" content="Google 在 Android/iOS 雙平台推出的 Cardboard Camera，算是目前看過效果最好的360立體照片軟體之一，而且拍攝極其方便簡單，就可以產生出約10000像素寬的高解析立體照片。問題是，這照片只能在手機自己的APP看，從手機的相簿或者傳到電腦上，會發現只有一張照片。 這問題在 Vector Cult VR 的文章 有很詳盡的解釋。">
+<meta name="twitter:image" content="https://mur.elii.io/cardboard-camera-htc-vive/01.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="eli's murmur" type="application/atom+xml" />
+
+
+
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>用HTC Vive看Cardboard Camera的照片 | eli's murmur</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+  <link rel="stylesheet" type="text/css" href="/css/patch.css">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">eli's murmur</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />tags<span class="badge">33</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />posts<span class="badge">30</span></a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+
+  
+      <div class="links-of-author menu-item" style="opacity: 1;">
+        
+          <span class="links-of-author-item">
+            <a href="https://github.com/elishahung" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="mailto:mrhchief@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://vimeo.com/elishahung" target="_blank" title="Vimeo"><i class="fa fa-fw fa-vimeo"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://instagram.com/elishahung" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i></a>
+            
+          </span>
+        
+          <span class="links-of-author-item">
+            <a href="https://www.flickr.com/photos/mrhchief" target="_blank" title="Flickr"><i class="fa fa-fw fa-flickr"></i></a>
+            
+          </span>
+        
+      </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mur.elii.io/cardboard-camera-htc-vive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="eli's murmur">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用HTC Vive看Cardboard Camera的照片
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-11-23 06:14:57" itemprop="dateCreated datePublished" datetime="2016-11-23T06:14:57+08:00">2016-11-23</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="video-container"><iframe src="//player.vimeo.com/video/192793926" frameborder="0" allowfullscreen></iframe></div>
+<p>Google 在 Android/iOS 雙平台推出的 Cardboard Camera，算是目前看過效果最好的360立體照片軟體之一，而且拍攝極其方便簡單，就可以產生出約10000像素寬的高解析立體照片。<br>問題是，這照片只能在手機自己的APP看，從手機的相簿或者傳到電腦上，會發現只有一張照片。</p>
+<p>這問題在 <a href="http://vectorcult.com/2015/12/extracting-the-audio-stereo-pair-from-cardboard-camera-3d-panoramic-images/" target="_blank" rel="noopener">Vector Cult VR</a> 的文章 有很詳盡的解釋。</p>
+<a id="more"></a>
+<h1 id="圖檔結構跟解出原始檔"><a href="#圖檔結構跟解出原始檔" class="headerlink" title="圖檔結構跟解出原始檔"></a>圖檔結構跟解出原始檔</h1><p>原來右眼的照片跟錄製時的環境音檔都存在這張Jpg的中繼資料裡面，XMP竟然可以保存這麼多格式。<br>知道原理後，便著手開始寫轉換的script，取得jpg中所需的資料，包括右眼圖檔、上下的裁高，把上下不足的地方補回去打糊，就像手機APP觀看的方式一樣。</p>
+<p>Vector Cult 在文章所使用提取Jpg中繼資料的方法是用 Python XMP Toolkit，但是這模組在windows無法編譯，所以轉個彎採exiftool用<code>subprocess</code>方式去接收資料。</p>
+<p>因為想以後可以直接拖曳想要轉檔的jpg到程式就可以直接轉，所以這邊寫了一個bat，來跟py做連結，畢竟沒辦法直接把檔案拖曳到py上。</p>
+<p>bat這邊就很簡單的寫上一行：<br><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">python "%~dp0cb.py" %~dp0 %*</span><br></pre></td></tr></table></figure></p>
+<p>來把bat所在路徑跟拖曳檔案的資訊傳到py裡。</p>
+<p>取得所有圖檔所在後便開始批次處理，首先用exiftool取得拍攝的細節資訊，了解到上下被裁切了多少，這些資訊等等圖像處理時會用到。<br>另外也用<code>exiftool -b</code>的方式把圖檔的右眼照片提取出來，提出來會是binary資料，用stringIO暫存下來給pillow用，就不用還另外存一個jpg檔。<br>值得注意的是，提出的binary資料用base64解碼預設可能會有padding的問題，所以另外弄了一個function補齊padding。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess, os, json, itertools, sys</span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode</span><br><span class="line"><span class="keyword">from</span> cStringIO <span class="keyword">import</span> StringIO</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageFilter, ImageDraw</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode_base64</span><span class="params">(data)</span>:</span></span><br><span class="line">    missing_padding = len(data) % <span class="number">4</span></span><br><span class="line">    <span class="keyword">if</span> missing_padding != <span class="number">0</span>:</span><br><span class="line">        data += <span class="string">b'='</span>* (<span class="number">4</span> - missing_padding)</span><br><span class="line">    <span class="keyword">return</span> b64decode(data)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exiftool</span><span class="params">(cmd)</span>:</span></span><br><span class="line">    process = subprocess.Popen(<span class="string">"exiftool "</span>+cmd, stdout=subprocess.PIPE, shell=<span class="keyword">True</span>)</span><br><span class="line">    process_data = process.stdout.read()</span><br><span class="line">    process.kill()</span><br><span class="line">    <span class="keyword">return</span> process_data.strip()</span><br><span class="line"></span><br><span class="line">output_dir = sys.argv[<span class="number">1</span>] + <span class="string">"output"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(output_dir):</span><br><span class="line">    os.makedirs(output_dir)</span><br><span class="line"></span><br><span class="line">jpg_list = sys.argv[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> idx, oi <span class="keyword">in</span> enumerate(jpg_list):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"====== Start Processing &#123;0&#125; (&#123;1&#125;/&#123;2&#125;) ======"</span>.format(oi, idx+<span class="number">1</span>, len(jpg_list))</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Get Image Information</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Fetch Image Information ... "</span></span><br><span class="line">    meta = json.loads(exiftool(<span class="string">"-G -j -sort &#123;0&#125;"</span>.format(oi)).decode(<span class="string">"utf-8"</span>).rstrip(<span class="string">"\r\n"</span>))[<span class="number">0</span>]</span><br><span class="line">    i_w = int(meta[<span class="string">u"XMP:FullPanoWidthPixels"</span>])</span><br><span class="line">    i_h = int(i_w/<span class="number">2</span>)</span><br><span class="line">    c_h = int(meta[<span class="string">u"XMP:CroppedAreaImageHeightPixels"</span>])</span><br><span class="line">    c_t = int(meta[<span class="string">u"XMP:CroppedAreaTopPixels"</span>])</span><br><span class="line">    c_b = i_h-c_h-c_t</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Extract Right Eye Image</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Extract Right Eye Image ... "</span></span><br><span class="line">    r_data = exiftool(<span class="string">"&#123;0&#125; -XMP-GImage:Data -b"</span>.format(oi))</span><br><span class="line">    ri = StringIO(decode_base64(r_data))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#Image Setting</span></span><br><span class="line">    lm = Image.open(oi)</span><br><span class="line">    rm = Image.open(ri)</span><br><span class="line">    main = Image.new(<span class="string">"RGB"</span>, (i_w, i_h*<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    im_list = []</span><br></pre></td></tr></table></figure></p>
+<h1 id="圖像處理"><a href="#圖像處理" class="headerlink" title="圖像處理"></a>圖像處理</h1><p>接下來就是pillow的圖像處理部分，這邊是根據裁切的上下高度，去依比例將原有圖像分割兩塊，並垂直翻轉後放在原始圖像上下兩端延伸，再上一層模糊濾鏡。<br>在此之前先做了一個mask，稍微羽化邊緣，去當作前段所述的合成圖像跟原始圖像疊加的遮罩。<br>左右眼批次做完上述動作後合在一起，便完成所有步驟。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Create Alpha Mask for Image Overlay    </span></span><br><span class="line">    mask = Image.new(<span class="string">"L"</span>, (i_w, i_h))</span><br><span class="line">    mask_draw = ImageDraw.Draw(mask)</span><br><span class="line">    mask_draw.rectangle([<span class="number">0</span>, <span class="number">0</span>, i_w, c_t], <span class="number">255</span>)</span><br><span class="line">    mask_draw.rectangle([<span class="number">0</span>, c_t+c_h, i_w, i_h], <span class="number">255</span>)</span><br><span class="line">    <span class="keyword">del</span> mask_draw</span><br><span class="line">    mask = mask.filter(ImageFilter.GaussianBlur(<span class="number">50</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#Image Process    </span></span><br><span class="line">    <span class="keyword">for</span> pic, eye <span class="keyword">in</span> itertools.izip([lm, rm], [<span class="string">"Left"</span>, <span class="string">"Right"</span>]):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Post-Processing &#123;0&#125; Eye Image ... "</span>.format(eye)</span><br><span class="line">        pic_t = pic.copy().crop((<span class="number">0</span>, <span class="number">0</span>, i_w, c_t/float(c_t+c_b)*c_h)).transpose(Image.FLIP_TOP_BOTTOM).resize((i_w, c_t))</span><br><span class="line">        pic_d = pic.copy().crop((<span class="number">0</span>, c_t/float(c_t+c_b)*c_h, i_w, c_h)).transpose(Image.FLIP_TOP_BOTTOM).resize((i_w, c_b))</span><br><span class="line">        pic_canvas = Image.new(<span class="string">"RGB"</span>, (i_w, i_h))</span><br><span class="line">        pic_canvas.paste(pic_t, (<span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">        pic_canvas.paste(pic, (<span class="number">0</span>, c_t))</span><br><span class="line">        pic_canvas.paste(pic_d, (<span class="number">0</span>, c_t+c_h))  </span><br><span class="line">        pic_overlay = pic_canvas.copy().filter(ImageFilter.GaussianBlur(<span class="number">100</span>))</span><br><span class="line">        pic_canvas.paste(pic_overlay, (<span class="number">0</span>, <span class="number">0</span>), mask)</span><br><span class="line">        im_list.append(pic_canvas)</span><br><span class="line">        <span class="keyword">for</span> im <span class="keyword">in</span> [pic, pic_t, pic_d, pic_overlay]:</span><br><span class="line">            im.close()</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="comment">#Composite and Output</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Finalize Composition ... "</span></span><br><span class="line">    main.paste(im_list[<span class="number">0</span>], (<span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">    main.paste(im_list[<span class="number">1</span>], (<span class="number">0</span>, i_h))</span><br><span class="line">    main.save(output_dir + <span class="string">"/"</span> + os.path.basename(oi))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> im <span class="keyword">in</span> ([mask, main, lm, rm] + im_list):</span><br><span class="line">        im.close()</span><br><span class="line">    ri.truncate(<span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">"Finish!!"</span></span><br></pre></td></tr></table></figure></p>
+<img src="/cardboard-camera-htc-vive/01.jpg">
+<p>接下來就可以戴上 HTC Vive 或 Oculus Rift 使用程式觀看(上面影片所使用的是Virtual Desktop)。</p>
+<p>要更進階的話，其實可以針對所有圖檔以及左右眼的圖像處理做threading，加快處理速度(PIL真的很慢)。另外exiftool在處理十張照片左右偶爾會出現memory leak的問題，目前還沒找到解決方法，不過就從斷點繼續轉就好，不太礙事。</p>
+<a href="/cardboard-camera-htc-vive/source.zip" title="附上原始檔連結">附上原始檔連結</a>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/vr/" rel="tag"># vr</a>
+          
+            <a href="/tags/vive/" rel="tag"># vive</a>
+          
+            <a href="/tags/camera/" rel="tag"># camera</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/particleflow-maxscript-missle/" rel="next" title="Particle Flow飛彈尾煙Maxscript練習">
+                <i class="fa fa-chevron-left"></i> Particle Flow飛彈尾煙Maxscript練習
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/pixpro-sp360-4k-180-vr-video/" rel="prev" title="用Pixpro SP360 4K錄製立體180度VR影片">
+                用Pixpro SP360 4K錄製立體180度VR影片 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+
+    
+
+    
+
+    <div class="sidebar-inner">
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#圖檔結構跟解出原始檔"><span class="nav-number">1.</span> <span class="nav-text">圖檔結構跟解出原始檔</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#圖像處理"><span class="nav-number">2.</span> <span class="nav-text">圖像處理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+
+    
+
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eli</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
