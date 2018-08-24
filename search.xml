@@ -26,8 +26,8 @@
     <content type="text"><![CDATA[入手iphone X後，前幾天開始好奇是不是可以來玩些什麼，於是去翻翻關於臉部追蹤的資料庫，發現蘋果對於這塊的API寫得很好，可以輕鬆取得相關追蹤資訊。於是就研究了些方法，讓資料可以帶到Houdini。 紀錄一下這幾天研究的一些心得。 前言上面的影片是用擷取好的資料在houdini重現，另外將捕捉時的圖像序列存下來，放在旁邊對照，造成有些人誤會是即時的。 但的確有另外做即時串流的捕捉模式，如下圖範例，不過就沒有辦法串流圖像，可以看到臉部生硬很多。(格率不夠是quicktime擷取4K螢幕的問題，手機APP跟伺服器當下是每秒60格運作的) 先附上這次的GitHub原始碼，程式基礎很淺，有點亂請見諒。 整體的流程，分客戶端跟伺服器端： 客戶端：在iphone X上寫一個APP，可以將臉部的追蹤資訊以串流送出或者儲存在手機。 伺服器端：在houdini上讀取資料，串流模式下架設伺服器接收臉部資訊封包，並將資料轉換成動態。 客戶端(iPhone, Swift)概要 陽春的介面：錄製模式、串流模式、細節設定，和一顆錄製Capture按鈕 臉部追蹤的部分是用到ARKit(連接SceneKit)，這邊蘋果已經幫我們準備得非常完善，追蹤運算那些深層都不用管，只要拿結果資料就好。 ARKit的細節就不詳述了，網路上有非常多文章寫得不錯，WWDC2017也有很多長知識的影片。現在相關文章大多都是一般的場景AR，而不是關於臉部的AR，不過大同小異，基礎的架構是一致的，蘋果研發網站的文件相當齊全，也有範例檔案跟說明，幾小時就能上手。 接下來所說的大部分在GitHub的程式碼都有註解，不再多做贅述。 客戶端這邊的流程是： 從AR框架取得資訊 -&gt; 將資訊整理 -&gt; 看是要串流封包給伺服器還是存檔在應用程式資料夾 要取得的有：臉部頂點資訊、臉部transform、臉部blendshape資料、攝影機transform、攝影機圖像 臉部頂點資訊ARKit主要的追蹤資料是存在ARSession.currentFrame裡面，也就是目前當格的追蹤資訊(ARSession預設捕捉是每秒60格)，臉部追蹤時只會有一個ARAnchor，如果畫面有兩個臉也只會針對比較明顯的去做追蹤， 而臉部的ARAnchor有一個專屬繼承類別叫ARFaceAnchor，就存有臉部模型與頂點位置資訊，用ARFaceAnchor.geometry.vertices可取出向量陣列。 臉部transform方才只有臉部頂點的資訊，類似表情這樣(像這影片)，那還需要旋轉位移等資訊才能移動頭部，同上從ARAnchor.transform拿到matrix4資訊。 臉部blendshape除了頂點資訊來做表情，還有更原生的blendshape資料可以拿，詳細的blendshape列表可以查看蘋果研發網站，還會有圖片清楚示意每個blendshape的morph。這個資料一樣要從ARFaceAnchor.blendShapes取得(得到的類型是字典)。 攝影機transform跟臉部一樣，是matrix4，這個攝影機資訊拿到是要在houdini裡面做投影貼圖用，結合待會要說的攝影機圖像。ARSession.currentFrame.camera可以拿到ARCamera，就是追蹤環境下當格的攝影機資料(還有追蹤狀況品質等)，再從ARCamera.transform取得位移。 攝影機圖像從ARSession.currentFrame.captureImage得到當格追蹤參考的圖像，解析度是1280x720，比較要注意的是取得的型態是YUV的CVPixelBuffer，要存成JPG或PNG需要再進行一些步驟，寫在GitHub原始檔的Extensions.swift裡。 取得資訊後，要轉換成字串以便寫成檔案或串流，詳細的方法也寫在Extension.swift裡，就是很陽春的轉成字串並分隔，時間格由每行分開，每種資料之間由”~”分開，資料自己再以”:”分開。浮點數包含”e”這種的轉成字串沒有關係，houdini是可以轉回去的，blendshape資訊也是如此。 取得資訊、資訊轉成字串都好了，接下來是輸出。分成兩類：Record錄製、Stream串流 Record錄製錄製比較需要的是可以自訂FPS，用Timer.scheduledTimer去做到這點。 錄製的流程是：每次執行捕捉時都將資料暫存陣列，而攝影機圖像就先存成JPG。錄製完後，將捕捉暫存陣列轉換成字串寫成txt文字檔，跟方才陸續存成的圖像序列都放在APP下documentary建立資料夾打包。 每格的圖像處理是另外的queue去跑，主執行還是跑捕捉，只是會把圖像資料丟給這個queue，queue再自行轉成jpg跟寫檔，queue在執行這過程要再包一個autoreleasepool，不包的話，跑UIImageJPEGRepresentation會讓記憶體瞬間衝滿，不會釋放。 錄製的檔案以錄製時間分類資料夾，從itunes可以輕易取出 Stream串流串流這塊很棘手，其實這幾天研究下來有絕大部分的時間都在處理這塊，對於網路和檔案傳送這塊不是很了解。 跟錄製從Timer.scheduledTimer執行不一樣的是，串流是由ARSession的delegate：didupdate來執行，也就是捕捉的每格都會串流，來做到最即時的反應。 用Stream.getStreamsToHost取得outputStream連接伺服器端，再將取得的資料轉成字串輸出，而每格的總執行時間要低於0.016秒，才能穩定60格輸出。當然還有傳的資料最後加上結尾字符，跟出錯時提醒伺服器停止接收等必須動作。至於圖像的串流目前能力還做不到。 伺服器端(Houdini, Python, Vex)概要伺服器端完全在houdini裡面搭建，先建立整體架構，用Python SOP匯入錄製資料，串流部分則利用hou.session(python source editor)完成接收伺服器的編寫。blendshape資訊在這流程下其實沒有用到，只是提供一個取出來的方法，以供之後有搭配rig的角色使用。 整體節點如下圖所示：由讀取臉部模型的faceGeo當起始，以Record錄製跟Stream串流兩種模式來分成兩大區塊。 faceGeo讀取一個臉部模型的bgeo.sc檔案(GitHub有附)，這是利用Xcode擷取出Scenekit的Collada檔案轉換而來，也就是ARFaceGeometry的模型。目前還不知道怎麼利用Model I/O匯出模型，既然臉部頂點都一樣，都是用同一個拓樸去貼合臉型，就沒必要每次都擷取模型。 Record Mode區塊material上一個unlit材質，並上臉部貼圖，材質的貼圖路徑是跟getRecordData連動的(去取得該路徑資料夾下的臉部圖像序列)。 getRecordDataPython Sop，這區塊的核心，選擇錄製資訊的資料夾，之後都幫你轉換好。滿意外的是貌似只讀取一次文字檔，之後拖曳時間軸順暢沒壓力，也不會有重複硬碟讀取。這邊是去抓指定資料夾裡的faceData.txt，並將資料解析給各頂點設定位置，然後將攝影機跟臉部的transform跟blendshapes給放到detail屬性裡。houdini 16.5新增的選擇資料夾parm，突破以往只能選檔案的限制，也使得這個hip只能用16.5開啟。 vex_faceAni然後將已經移動完位置的頂點套上臉部matrix資訊。 vex_camTrans將攝影機的matrix解出位移跟旋轉，其實AR攝影機只會有旋轉的資訊。這個資訊會套在根路徑的投影貼圖專用攝影機。 vex_projectUV投影貼圖的攝影機套上位移後，取得攝影機跟頂點的相對位置，投影成頂點的uv。這樣錄製的部分就完成了。 Stream Mode區塊useMapping因為串流模式沒有串流貼圖，可以先用錄製模式取得的某格貼圖跟uv去上在模型上。 streamServer這區塊的核心，伺服器IP設定、開關控制，以及用接收的資訊去驅動模型。在這邊新增按鈕，跟hou.session做連動控制伺服器的開關跟設定IP，並有一個隱藏的字串parm(&quot;datas&quot;)去接受串流得到的捕捉資訊，code的wrangle部分再用這個parm(&quot;datas&quot;)去移動頂點。 hou.session module跟iPhone X 串流溝通的部分是寫在這裡，也就是存在hip本身裡面的python檔，將公式定義在這裡，方便修改以及跟streamServer節點的按鈕連動。 接收的伺服器制定了兩個執行緒，一個執行緒持續接收iPhone X這邊的封包，並將接收好的封包丟在一個queue，另一個執行緒持續等著這個queue，這個queue一有東西便馬上拿出來放到streamServer的parm(&quot;datas&quot;)裡。這邊兩個執行緒都會持續播報每秒執行的資料數量，正常來說應該都要是print 60, 60，而houdini viewport更新的部分可能礙於顯示效能，會是30~60fps跑。 伺服器端的部分大抵是這樣，其實東西都很簡單，但學習串流的部分花了很多時間，到目前為止其實都還不算穩定，有時候也會因不明原因延遲，要重新接幾次才會順暢60格跑。至於圖像串流，曾經試過將圖像轉成jpg後用base64方式去傳，但都會略高於1/60秒的處理時間，更何況還有houdini這邊圖像更新所需的時間，還是將這種事情留給unreal或者unity做吧。]]></content>
       <tags>
         <tag>houdini</tag>
-        <tag>vex</tag>
         <tag>tutorial</tag>
+        <tag>vex</tag>
         <tag>python</tag>
         <tag>swift</tag>
         <tag>ar</tag>
@@ -50,8 +50,8 @@
     <content type="text"><![CDATA[去年一個案子要做出類似暗黑破壞神的天使翅膀。運用wire capture操縱turbulence的翅膀片狀，並調整適當shader，幾乎可以做到即時預覽。也可以拿來做為靈氣(aurora)之類的效果，免去用大量praticle堆疊。 導引骨架 一開始用wire solver簡單做出幾個動態的線條，在這邊稱為翅膀的導引線，每個導引線都是一個primitive，並且每點等距。 加上measure算出每個導引線的長度，接著用foreach針對每個導引線做權重綁定處理。 權重綁定 製作出一個和導引線等長的片狀翅膀，以X軸為基準。 翅膀完成後，讓導引線的每個點根據自己的點編號順序排在X軸上，與翅膀對齊，便可以用wire capture算出翅膀在導引線上的權重。 增加動態 加上turbulence，注意freq的比例、隨時間增加的offset，這邊的扭曲是算圖效果的關鍵。 另外有做twist去豐富動態細節，要注意的是隨著每根翅膀不同，要有不同的seed才有多樣化的層次。 翅膀本身型態調完後，就可以添加wire deform去跟隨導引線的動態，到這邊基本上模型的部分就完成了，剩下的是一些修飾，像根據導引線頭尾位置添加顏色漸層，或者smooth修順形狀。 材質shader則是創造一個constant預設材質球。進到內部，加上normal falloff去相乘color，以及當成opacity。然後調整normal falloff的參數，去抓出翅膀扭曲部分的漸層。 測算單張，算圖時間僅需3秒。 整個流程只要修改導引線便可以更改動態，而翅膀的細節則由turbulence去控制，彈性很高，相同概念可以用在很多地方。 最後附上示範hip檔]]></content>
       <tags>
         <tag>houdini</tag>
-        <tag>vex</tag>
         <tag>tutorial</tag>
+        <tag>vex</tag>
         <tag>shader</tag>
         <tag>wire</tag>
       </tags>
@@ -95,8 +95,8 @@
     <content type="text"><![CDATA[以往我在做houdini出particle到max的流程中，是用prt格式比較多，但近期發現vray proxy來讀alembic是很不錯的方式。 max內建讀取alembic效能很差，而exocortex的外掛是有較多相容性，但效能一樣不佳。vray proxy卻是一反前二者有著極佳的讀取速度，也有viewport減面的優化功能，在不用做二次編輯之下，vray proxy相信是目前max讀取abc的首選。 vray proxy可以讀取的資訊相當豐富，這篇就概括說明一下，houdini的資訊要怎麼帶到vray proxy。 概要以下主要側重在houdini的particle出abc給vray proxy的部分，這部分在官方document幾乎沒有資料，在研究了alembic的格式結構、論壇討論以及實際測試後，整理成以下的方法： 這邊以一個往斜上方的點當作particle資訊夾帶範例，圖上數字為自創的width屬性。 設定屬性 創了一個斜線之後，只留下點的部分，並用vex給予這些設定。我設定了三個屬性：width、Cd、mask： width即是vray proxy算圖時的particle大小，也就是houdini的pscale。 Cd是顏色，但其實出給vray proxy不用特地要叫Cd，只要你有設定屬性，vray proxy都可以讀。 最後我設定了一個mask，這個是要來跟Cd做對照 要對照什麼呢？ 你可以看到最後一行特地設定了屬性的type，把mask指定為vector屬性，其實在houdini裡基本上沒必要做這件事，當打下v@就已經知道是vector，這邊的屬性可以說是設定給alembic看，並可以順利給予vray proxy讀取的，不然vray proxy只會將mask這屬性視作單一浮點數。 那為什麼只設定了mask沒設定Cd？那是因為houdini本身就有內建幾個對應屬性類別，像v、Cd這些常用屬性都是，所以不用特別做設定。這也代表說，你設定向量的屬性type其實用vector或color都可以。 匯入Alembic 接著到max裡讀取houdini輸出的abc，注意要將vray proxy的X軸旋轉90度，縮放100倍，才會是正確大小與軸向。 如果方才有輸出width屬性，這邊就會自動對應了，而vray proxy本身的介面也有一個width總控制去相乘，像剛剛如果有縮放一百倍，這邊就要將width設成0.01。 而其他屬性資訊部分，全都含在vertex color的map channel，如果有上vertex color貼圖，可以看到channel name這邊會顯示全部屬性名稱，如果是單一浮點數屬性，名字會像r_mask這樣有一個r_的起頭。 試算 採vray light mtl並將顏色部分貼上vertex color，試算可以看到資訊完全正確。 試算時，也順便增加了一個ExtraTex pass夾帶mask資訊，也是正確無誤。因此可以延伸想說，其實不只particle，連一般物體都可以夾帶許多屬性用vray proxy的方式到vray這邊算，讓出圖跟後期合成增添許多彈性。 雖然vray算particle的速度遠遠不及krakatoa，但在專案整合，場景整理上，如果能一起用vray算圖也是很方便。尤其最近公司很多VR專案，就不用去在乎場景matte或者VR攝影機。 發光材質 krakatoa的additive渲染效果，其實vray也可以達到，上圖是一般預設材質的particle。 材質用vraylight，opacity給上一張非常暗的vraycolor，然後去調整color顏色、強度跟opacity的濃淡，就可以達到additive的效果。這邊的材質參數是：顏色藍綠色，強度3來增加密集的亮度，opacity的vraycolor是0.05的灰質。當然，這種方法出圖也會跟krakatoa的additive渲染一樣無法使用alpha。 Material ID 額外簡單說明material id的部分，其實就是用group去出成alembic的face set。 隨便用一個multi material。 基本上id順序應該是group的名稱順序。 更新補充忘記提motion blur這塊，一樣用v去帶，不過有兩個小bug。 cache最開始不能是空的，也就是第一格cache是要有particle存在的格數。 輸出單格abc無法應用vray內建的motion blur，但velocity pass會有。一定要輸出多格的才會有motion blur。]]></content>
       <tags>
         <tag>houdini</tag>
-        <tag>vex</tag>
         <tag>tutorial</tag>
+        <tag>vex</tag>
         <tag>alembic</tag>
         <tag>vray</tag>
         <tag>shader</tag>
@@ -108,8 +108,8 @@
     <content type="text"><![CDATA[上一篇的截線是針對球型的，那如果是任意模型的截面呢？ 或許會直覺想說，創造一個 grid，然後跟模型用 cookie 的方式選擇 crease 模式去取出來，但其實布林的方式限制很多(例如模型要封閉)，各種不穩定的因素，而且也比較需要計算效能。 在這邊使用的是以 clip 為主軸的方法，效能快，穩定，而且模型也不需要封閉。 模型準備 使用的範例模型是 houdini 內建的豬頭，並開了幾個洞讓它變成開放式模型好做示範。 流程概要 整個流程如圖：記下開放的 edges，clip 切割，再記一次開放的 edges (並撇除第一次記下的 edges)，用 polycut 刪除前者以外的模型，用繼承 clip 屬性的 grid 去清潔模型。 group 首先，先 group 既有的開放邊線，這邊取名作 initial_open_edge。 clip 接著 clip 想取出的截面，任意數值方向無所謂。 邊線群組 這次再 group 一次開放邊線，並撇除前一次的 initial_open_edge，這樣就可以得到 clip 切割出的邊線群組，這邊取作 clip_edge。 非邊線群組 將不是 clip_edge 的邊線另外取一個群組 nonedge。 取出邊線 然後用 polycut 把 nonedge 給去除掉，這樣就可以留下單純的 clip_edge，基本上到這步就結束了。 清除殘餘不過如果你是對開放式模型作處理，就可能會像上圖紅箭頭處一樣，留下一些殘餘，接下來就要針對殘餘作清除。 另外創一個比模型大的 grid ，並讓它繼承 clip 屬性來實體化切面。 繼承方法很簡單，grid 的 center 對應 clip 的 origin，然後 grid 下面接上一個 transform axis，transform axis 的 direction 跟 translate 分別對應 clip 的 direction 跟 distance。 判斷清除 接著讓每個 point 跟此 grid 的距離作一個判斷閥值，便可以輕鬆清除乾淨。 其實可以把整個節點樹做成一個簡單的 otl ，相信會很常用到。]]></content>
       <tags>
         <tag>houdini</tag>
-        <tag>vex</tag>
         <tag>tutorial</tag>
+        <tag>vex</tag>
       </tags>
   </entry>
   <entry>
@@ -118,8 +118,8 @@
     <content type="text"><![CDATA[前陣子有一個需求效果，是要做許多環繞在球型上的切線。 在經過幾個測試評估後，決定在球心附近產生亂數點，給予方向屬性，然後找出通過此點並垂直球心的的圓切面來取得線段，可以達到最大的調整彈性跟計算效率。 產生參考點 首先就是要產生每個切線的圓心，利用一顆要小許多的球來產生點，讓範圍只在球心附近徘徊，因為不想產生半徑太小的圓切面。 設定參考點屬性 接著幫每個點設定隨機的垂直 up 跟 N，去決定圓切面的方向。 求出圓心 最重點的地方，利用數學公式去找出通過點並垂直球心的圓心。 整理後的公式如下：vector getCircleCenter(vector p_normal, p_pos)&#123; float a, b, c, x, y, z; assign(a, b, c, p_normal); assign(x, y, z, p_pos); float d = -a*x - b*y - c*z; float t = -( d / (a*a + b*b + c*c) ); return p_normal * t;&#125;// p_normal = 點的N，p_pos = 點的位置，這是圓心為&#123;0, 0, 0&#125;下的簡易公式 有圓心後再依據其方向投射到球面(外殼)的位置找到半徑數值寫在pscale裡面，並用copy circle的方式便可以產生環繞球型的切線。 particle點綴 這邊是點綴效果，讓每個線上都有particle在跑，因為有up跟圓心的數值，可以用cross product輕鬆求出v值的方向做出這個效果。]]></content>
       <tags>
         <tag>houdini</tag>
-        <tag>vex</tag>
         <tag>tutorial</tag>
+        <tag>vex</tag>
       </tags>
   </entry>
   <entry>
@@ -138,8 +138,8 @@
     <content type="text"><![CDATA[前幾天看了一段 breakdown ，看到影片裡18秒處的效果覺得自己應該做得到，就趁工作閒餘試著做了出來，結果一個專案同事看到很喜歡想套到他的專案裡，問題是他想成形的是一個LOGO，而不是像那段影片只是一個簡單重複的圓形，完全不同邏輯的東西，不過這幾天還是硬著頭皮想出了一套製作方法。 下面簡單說明一下整個節點流程，效果就如上面影片，一切的目標方向是以未來還可以套別的模型，完全程序性來製作。 LOGO模型是同事用 3ds max 做的，因為模型最後上了 symmetry ，所以中間有一段 loop edge ，就直接抽出這段 edge ，來當產生點。 接著要找出每個產生點到末端的位置，末端的資訊很重要，影響之後所有的流程。 找到每個產生點的末端後，開始製作每個產生點沿著模型到末端的路徑，這邊是利用 cookie(crease) 的方式產生切線，以 產生點 -&gt; 末端 的向量來旋轉 cookie 的平面，得到切線後，再去判斷切線要留著的段落，讓最後只剩餘產生點到末端的curve。 從上面步驟取得每條導引線後，每條導引線會再複製一份，並取隔壁條導引線的 attribute 覆蓋，這是為了之後要拿兩兩一組導引線 skin 包面。 在這之前要先做導引線的動態，旋轉的方式是以每個點為基準來判斷，每個點的 normal 跟 up 加上總變數 時間點 的影響，依照從屬跟 ramp 的調節，設定出最後旋轉完的位置。 最後是包面，以兩兩一組的導引線做處理，由於導引線的 point 數不一定會一樣，要一樣的 point 數才能用 rails 包面，所以做了一個在不影響外觀的情況下讓兩條導引線補成相同 point 數的運算式。 包面完成後，最後的外觀樣子由於以上流程的種種因素，跟原本的模型一定會有非常細微的差距，這邊再以其中流程產生的豐富資訊，去判斷漸進貼齊原本模型的表面。 最後將其每個點的動態資訊寫在 UV 上，到時匯給 max 可以在模型上套一個 gradient map 貼圖去取得 UV 資訊，再以其作 matte 給 2D 做更多細節修正。]]></content>
       <tags>
         <tag>houdini</tag>
-        <tag>vex</tag>
         <tag>tutorial</tag>
+        <tag>vex</tag>
       </tags>
   </entry>
   <entry>
@@ -162,8 +162,8 @@
         <tag>tutorial</tag>
         <tag>3ds max</tag>
         <tag>maya</tag>
-        <tag>python</tag>
         <tag>point cache</tag>
+        <tag>python</tag>
         <tag>frost</tag>
         <tag>mel</tag>
       </tags>
@@ -184,8 +184,8 @@
     <content type="text"><![CDATA[從前端那邊拿到模型基本上都是一個合併的完整模型，像上圖傳統建築的木頭梁柱，要每一根去縮放做Fracture產生木頭的碎裂形狀，卻是一整個模型沒有軸向。 遇到這樣的狀況其實使用Bound很容易解決。 大概作法就是產生物體的oriented bounding box，取出bounding box的最長邊向量，並將向量代入transform axis去縮放。 將物體分開處理後，產生Bounding box，勾選Oriented Bounding Box這神奇的功能，記得之前在max為了算出動態物件在FumeFX裡最佳化大小的外框有研究過這種東西，很複雜。 在Bounding Box下，每一個point一定會連接三個不同邊長，取出來算出最長邊的向量保存起來。 使用Transform Axis去取資訊，再調整Scale數值即可。]]></content>
       <tags>
         <tag>houdini</tag>
-        <tag>vex</tag>
         <tag>tutorial</tag>
+        <tag>vex</tag>
       </tags>
   </entry>
   <entry>
@@ -207,8 +207,8 @@
         <tag>houdini</tag>
         <tag>tip</tag>
         <tag>3ds max</tag>
-        <tag>python</tag>
         <tag>point cache</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
